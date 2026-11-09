@@ -105,7 +105,7 @@ export function BookingForm({ onSearch }: { onSearch?: (v: BookingInput) => void
 
 const inputCls = "w-full bg-transparent text-[15px] font-medium text-navy placeholder:text-muted-foreground/80 focus:outline-none";
 
-function Field({ id, label, icon, error, children }: { id: string; label: string; icon: ReactNode; error?: string; children: ReactNode }) {
+function Field({ id, label, icon, error, children }: { id: string; label: string; icon: ReactNode; error?: string | undefined; children: ReactNode }) {
   return (
     <div className={cn("group rounded-2xl px-4 py-2.5 transition-colors focus-within:bg-pale/70 lg:rounded-none lg:first:rounded-l-[1.25rem]", error && "bg-destructive/5")}>
       <label htmlFor={id} className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">

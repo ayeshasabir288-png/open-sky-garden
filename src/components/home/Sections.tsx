@@ -112,12 +112,12 @@ function BenefitItem({ icon: Icon, title, text, side, delay }: { icon: typeof Pl
     <li>
       <Reveal delay={delay}>
         <div className={`flex items-start gap-4 ${side === "left" ? "lg:flex-row-reverse lg:text-right" : ""}`}>
+          <span aria-hidden className={`mt-6 hidden h-px w-10 shrink-0 from-primary/60 to-transparent lg:block ${side === "left" ? "bg-gradient-to-r" : "bg-gradient-to-l"}`} />
           <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-card text-primary shadow-soft ring-1 ring-primary/15"><Icon className="h-5 w-5" /></span>
           <div className="flex-1">
             <h3 className="text-lg font-bold text-navy">{title}</h3>
             <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{text}</p>
           </div>
-          <span aria-hidden className={`mt-6 hidden h-px w-14 bg-gradient-to-r from-primary/50 to-transparent lg:block ${side === "left" ? "rotate-180" : ""}`} />
         </div>
       </Reveal>
     </li>
