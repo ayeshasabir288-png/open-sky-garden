@@ -28,3 +28,6 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Homepage sections live in src/components/home; booking validation is in src/lib/booking.ts (tested) so a real booking API can replace the demo preview without touching layout.
