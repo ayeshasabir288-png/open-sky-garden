@@ -50,10 +50,10 @@ export function Faq() {
 
 export function FinalCta() {
   return (
-    <section aria-labelledby="cta-title" className="px-3 py-16 sm:px-6 md:py-24">
+    <section aria-labelledby="cta-title" className="px-3 py-12 sm:px-6 md:py-16">
       <Reveal>
-        <div className="relative isolate mx-auto max-w-6xl overflow-hidden rounded-[2rem] px-6 py-20 text-center sm:px-12 md:py-28">
-          <img src={cta} alt="" width={1920} height={832} loading="lazy" className="absolute inset-0 -z-20 h-full w-full object-cover" />
+        <div className="relative isolate mx-auto max-w-6xl overflow-hidden rounded-[2rem] px-6 py-16 text-center sm:px-12 md:py-20">
+          <img src={cta} alt="" width={1920} height={832} loading="lazy" decoding="async" className="absolute inset-0 -z-20 h-full w-full object-cover" />
           <div className="absolute inset-0 -z-10 bg-gradient-teal opacity-85 mix-blend-multiply" />
           <div className="absolute inset-0 -z-10 bg-gradient-to-t from-overlay/50 to-transparent" />
           <h2 id="cta-title" className="mx-auto max-w-2xl text-4xl font-extrabold text-primary-foreground sm:text-5xl md:text-6xl">Your Next Journey Starts Here</h2>

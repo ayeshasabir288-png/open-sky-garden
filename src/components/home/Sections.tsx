@@ -78,27 +78,27 @@ export function Benefits() {
   const right = BENEFITS.slice(3);
   return (
     <section id="services" aria-labelledby="benefits-title" className="relative overflow-hidden bg-pale py-16 md:py-20">
-      <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 h-[42rem] w-[42rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/10" />
-      <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/15" />
+      <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/10 sm:h-[42rem] sm:w-[42rem]" />
+      <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 h-[24rem] w-[24rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/15 sm:h-[30rem] sm:w-[30rem]" />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
           <Eyebrow className="justify-center">Our services</Eyebrow>
-          <h2 id="benefits-title" className="mt-4 text-3xl font-extrabold text-navy sm:text-4xl md:text-5xl">
+          <h2 id="benefits-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">
             Why Choose <span className="text-primary">Europe Airport Taxi</span>
           </h2>
-          <p className="mt-4 text-muted-foreground">A private transfer designed around the way you travel.</p>
+          <p className="mt-4 leading-7 text-muted-foreground">A private transfer designed around the way you travel.</p>
         </Reveal>
-        <div className="mt-14 grid items-center gap-10 lg:grid-cols-[1fr_auto_1fr]">
-          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
+        <div className="mt-10 grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(15rem,0.8fr)_minmax(0,1fr)] lg:gap-8">
+          <ul className="grid gap-6 sm:grid-cols-3 lg:grid-cols-1 lg:grid-rows-3">
             {left.map((b, i) => <BenefitItem key={b.title} {...b} side="left" delay={i * 100} />)}
           </ul>
-          <Reveal className="mx-auto">
+          <Reveal className="mx-auto flex h-full items-center justify-center">
             <div className="relative">
-              <div aria-hidden className="absolute inset-x-6 bottom-2 top-10 rounded-full bg-primary/20 blur-3xl" />
-              <img src={sedanTop} alt="Black executive sedan viewed from directly above" width={768} height={1344} loading="lazy" className="relative h-[22rem] w-auto drop-shadow-2xl sm:h-[28rem] lg:h-[30rem]" />
+              <div aria-hidden className="absolute inset-x-4 bottom-2 top-8 rounded-full bg-primary/20 blur-3xl" />
+              <img src={sedanTop} alt="Black executive sedan viewed from directly above" width={768} height={1344} loading="lazy" decoding="async" className="relative h-[25rem] w-auto drop-shadow-2xl sm:h-[30rem] lg:h-[34rem]" />
             </div>
           </Reveal>
-          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
+          <ul className="grid gap-6 sm:grid-cols-3 lg:grid-cols-1 lg:grid-rows-3">
             {right.map((b, i) => <BenefitItem key={b.title} {...b} side="right" delay={i * 100} />)}
           </ul>
         </div>
@@ -109,14 +109,14 @@ export function Benefits() {
 
 function BenefitItem({ icon: Icon, title, text, side, delay }: { icon: typeof Plane; title: string; text: string; side: "left" | "right"; delay: number }) {
   return (
-    <li>
-      <Reveal delay={delay}>
-        <div className={`flex items-start gap-4 ${side === "left" ? "lg:flex-row-reverse lg:text-right" : ""}`}>
-          <span aria-hidden className={`mt-6 hidden h-px w-10 shrink-0 from-primary/60 to-transparent lg:block ${side === "left" ? "bg-gradient-to-r" : "bg-gradient-to-l"}`} />
-          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-card text-primary shadow-soft ring-1 ring-primary/15"><Icon className="h-5 w-5" /></span>
-          <div className="flex-1">
-            <h3 className="text-lg font-bold text-navy">{title}</h3>
-            <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{text}</p>
+    <li className="h-full">
+      <Reveal delay={delay} className="h-full">
+        <div className={`group flex h-full items-start gap-3.5 ${side === "left" ? "lg:flex-row-reverse lg:text-right" : ""}`}>
+          <span aria-hidden className={`mt-6 hidden h-px w-8 shrink-0 from-primary/60 to-transparent lg:block ${side === "left" ? "bg-gradient-to-r" : "bg-gradient-to-l"}`} />
+          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-card text-primary shadow-soft ring-1 ring-primary/20 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:bg-accent group-hover:ring-primary/35"><Icon className="h-5 w-5" strokeWidth={2} /></span>
+          <div className="min-w-0 flex-1">
+            <h3 className="text-[17px] font-bold leading-snug text-navy">{title}</h3>
+            <p className="mt-1.5 text-[15px] leading-6 text-muted-foreground">{text}</p>
           </div>
         </div>
       </Reveal>
