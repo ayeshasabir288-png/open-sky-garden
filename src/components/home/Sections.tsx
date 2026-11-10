@@ -4,7 +4,7 @@ import paris from "@/assets/city-paris.jpg";
 import amsterdam from "@/assets/city-amsterdam.jpg";
 import barcelona from "@/assets/city-barcelona.jpg";
 import rome from "@/assets/city-rome.jpg";
-import sedanTop from "@/assets/sedan-top.png";
+import sedanTop from "@/assets/sedan-top.webp";
 import economy from "@/assets/fleet-economy-sedan.jpg";
 import business from "@/assets/fleet-business-sedan.jpg";
 import van from "@/assets/fleet-business-van.jpg";
@@ -24,14 +24,14 @@ const CITIES = [
 
 export function Intro() {
   return (
-    <section id="about" aria-labelledby="intro-title" className="py-20 md:py-28">
-      <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+    <section id="about" aria-labelledby="intro-title" className="py-16 md:py-20">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <Reveal>
           <Eyebrow>About the service</Eyebrow>
-          <h2 id="intro-title" className="mt-4 text-3xl font-extrabold leading-tight text-navy sm:text-4xl md:text-5xl">
+          <h2 id="intro-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">
             Your Journey Across Europe <span className="text-primary">Starts Here</span>
           </h2>
-          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-5 text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
             Europe Airport Taxi helps you plan a private transfer between airports, hotels, city centres and other destinations. Instead of queuing for a taxi or juggling train connections with luggage, you arrange a vehicle in advance for your own group.
           </p>
           <p className="mt-4 leading-relaxed text-muted-foreground">
@@ -45,11 +45,11 @@ export function Intro() {
           {CITIES.map((c, i) => (
             <Reveal key={c.name} delay={i * 90} className={i % 2 === 1 ? "translate-y-8 sm:translate-y-12" : ""}>
               <figure className="group relative aspect-[3/4] overflow-hidden rounded-3xl shadow-soft">
-                <img src={c.img} alt={c.alt} width={768} height={1024} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-overlay/80 via-overlay/10 to-transparent" />
+                <img src={c.img} alt={c.alt} width={768} height={1024} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-overlay/85 via-overlay/15 to-transparent" />
                 <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between p-4 sm:p-5">
                   <span>
-                    <span className="block text-xs font-medium uppercase tracking-widest text-navy-foreground/75">{c.note}</span>
+                    <span className="block text-xs font-medium uppercase tracking-widest text-navy-foreground/85">{c.note}</span>
                     <span className="font-display text-xl font-bold text-navy-foreground sm:text-2xl">{c.name}</span>
                   </span>
                   <span className="grid h-9 w-9 place-items-center rounded-full bg-card/90 text-primary transition-transform group-hover:rotate-45"><ArrowUpRight className="h-4 w-4" /></span>
@@ -77,28 +77,28 @@ export function Benefits() {
   const left = BENEFITS.slice(0, 3);
   const right = BENEFITS.slice(3);
   return (
-    <section id="services" aria-labelledby="benefits-title" className="relative overflow-hidden bg-pale py-20 md:py-28">
-      <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 h-[42rem] w-[42rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/10" />
-      <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/15" />
+    <section id="services" aria-labelledby="benefits-title" className="relative overflow-hidden bg-pale py-16 md:py-20">
+      <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/10 sm:h-[42rem] sm:w-[42rem]" />
+      <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 h-[24rem] w-[24rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/15 sm:h-[30rem] sm:w-[30rem]" />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
           <Eyebrow className="justify-center">Our services</Eyebrow>
-          <h2 id="benefits-title" className="mt-4 text-3xl font-extrabold text-navy sm:text-4xl md:text-5xl">
+          <h2 id="benefits-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">
             Why Choose <span className="text-primary">Europe Airport Taxi</span>
           </h2>
-          <p className="mt-4 text-muted-foreground">A private transfer designed around the way you travel.</p>
+          <p className="mt-4 leading-7 text-muted-foreground">A private transfer designed around the way you travel.</p>
         </Reveal>
-        <div className="mt-14 grid items-center gap-10 lg:grid-cols-[1fr_auto_1fr]">
-          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
+        <div className="mt-10 grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(15rem,0.8fr)_minmax(0,1fr)] lg:gap-8">
+          <ul className="grid gap-6 sm:grid-cols-3 lg:grid-cols-1 lg:grid-rows-3">
             {left.map((b, i) => <BenefitItem key={b.title} {...b} side="left" delay={i * 100} />)}
           </ul>
-          <Reveal className="mx-auto">
+          <Reveal className="mx-auto flex h-full items-center justify-center">
             <div className="relative">
-              <div aria-hidden className="absolute inset-x-6 bottom-2 top-10 rounded-full bg-primary/20 blur-3xl" />
-              <img src={sedanTop} alt="Black executive sedan viewed from directly above" width={768} height={1344} loading="lazy" className="relative h-[22rem] w-auto drop-shadow-2xl sm:h-[28rem] lg:h-[30rem]" />
+              <div aria-hidden className="absolute inset-x-4 bottom-2 top-8 rounded-full bg-primary/20 blur-3xl" />
+              <img src={sedanTop} alt="Black executive sedan viewed from directly above" width={768} height={1344} loading="lazy" decoding="async" className="relative h-[25rem] w-auto drop-shadow-2xl sm:h-[30rem] lg:h-[34rem]" />
             </div>
           </Reveal>
-          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
+          <ul className="grid gap-6 sm:grid-cols-3 lg:grid-cols-1 lg:grid-rows-3">
             {right.map((b, i) => <BenefitItem key={b.title} {...b} side="right" delay={i * 100} />)}
           </ul>
         </div>
@@ -109,14 +109,14 @@ export function Benefits() {
 
 function BenefitItem({ icon: Icon, title, text, side, delay }: { icon: typeof Plane; title: string; text: string; side: "left" | "right"; delay: number }) {
   return (
-    <li>
-      <Reveal delay={delay}>
-        <div className={`flex items-start gap-4 ${side === "left" ? "lg:flex-row-reverse lg:text-right" : ""}`}>
-          <span aria-hidden className={`mt-6 hidden h-px w-10 shrink-0 from-primary/60 to-transparent lg:block ${side === "left" ? "bg-gradient-to-r" : "bg-gradient-to-l"}`} />
-          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-card text-primary shadow-soft ring-1 ring-primary/15"><Icon className="h-5 w-5" /></span>
-          <div className="flex-1">
-            <h3 className="text-lg font-bold text-navy">{title}</h3>
-            <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{text}</p>
+    <li className="h-full">
+      <Reveal delay={delay} className="h-full">
+        <div className={`group flex h-full items-start gap-3.5 ${side === "left" ? "lg:flex-row-reverse lg:text-right" : ""}`}>
+          <span aria-hidden className={`mt-6 hidden h-px w-8 shrink-0 from-primary/60 to-transparent lg:block ${side === "left" ? "bg-gradient-to-r" : "bg-gradient-to-l"}`} />
+          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-card text-primary shadow-soft ring-1 ring-primary/20 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:bg-accent group-hover:ring-primary/35"><Icon className="h-5 w-5" strokeWidth={2} /></span>
+          <div className="min-w-0 flex-1">
+            <h3 className="text-[17px] font-bold leading-snug text-navy">{title}</h3>
+            <p className="mt-1.5 text-[15px] leading-6 text-muted-foreground">{text}</p>
           </div>
         </div>
       </Reveal>
@@ -136,26 +136,28 @@ const AIRPORTS = [
 
 export function Airports() {
   return (
-    <section id="airports" aria-labelledby="airports-title" className="py-20 md:py-28">
+    <section id="airports" aria-labelledby="airports-title" className="py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <Reveal className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div className="max-w-xl">
             <Eyebrow>European airports</Eyebrow>
-            <h2 id="airports-title" className="mt-4 text-3xl font-extrabold text-navy sm:text-4xl md:text-5xl">Major Airports <span className="text-primary">Across Europe</span></h2>
+            <h2 id="airports-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">Major Airports <span className="text-primary">Across Europe</span></h2>
           </div>
-          <p className="max-w-sm text-muted-foreground">Popular hubs travellers often ask about. Enter your airport in the booking form to plan a transfer.</p>
+          <p className="max-w-sm leading-7 text-muted-foreground">Popular hubs travellers often ask about. Enter your airport in the booking form to plan a transfer.</p>
         </Reveal>
-        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {AIRPORTS.map((a, i) => (
-            <li key={a.code}>
-              <Reveal delay={i * 70}>
-                <article className="group relative overflow-hidden rounded-3xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-float">
-                  <span aria-hidden className="absolute -right-4 -top-6 font-display text-8xl font-extrabold text-pale transition-colors group-hover:text-accent">{a.code}</span>
-                  <div className="relative">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-pale px-3 py-1 text-xs font-bold tracking-widest text-primary"><Plane className="h-3.5 w-3.5" /> {a.code}</span>
-                    <h3 className="mt-5 text-xl font-bold text-navy">{a.name}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground">{a.city} · {a.country}</p>
-                    <a href="#book" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">Plan a transfer <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></a>
+            <li key={a.code} className="h-full">
+              <Reveal delay={i * 70} className="h-full">
+                <article className="group relative flex h-full min-h-60 flex-col overflow-hidden rounded-3xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-float focus-within:border-primary/40 sm:p-7">
+                  <span aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <span aria-hidden className="absolute -right-10 -top-12 h-36 w-36 rounded-full bg-pale transition-transform duration-500 group-hover:scale-110" />
+                  <span aria-hidden className="absolute -right-2 -top-5 font-display text-7xl font-extrabold tracking-tighter text-pale transition-colors duration-300 group-hover:text-accent">{a.code}</span>
+                  <div className="relative flex h-full flex-col">
+                    <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-pale px-3 py-1.5 text-[11px] font-bold tracking-widest text-primary ring-1 ring-primary/10"><Plane className="h-3.5 w-3.5" /> {a.code}</span>
+                    <h3 className="mt-6 max-w-64 text-xl font-bold leading-snug text-navy">{a.name}</h3>
+                    <p className="mt-2 text-[15px] leading-6 text-muted-foreground">{a.city} · {a.country}</p>
+                    <a href="#book" className="mt-auto inline-flex w-fit items-center gap-1.5 pt-6 text-sm font-semibold text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring">Plan a transfer <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" /></a>
                   </div>
                 </article>
               </Reveal>
@@ -177,24 +179,24 @@ const FLEET = [
 
 export function Fleet() {
   return (
-    <section id="fleet" aria-labelledby="fleet-title" className="bg-navy py-20 text-navy-foreground md:py-28">
+    <section id="fleet" aria-labelledby="fleet-title" className="bg-navy py-16 text-navy-foreground md:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
           <Eyebrow className="text-primary-bright">Our fleet</Eyebrow>
-          <h2 id="fleet-title" className="mt-4 text-3xl font-extrabold sm:text-4xl md:text-5xl">A Vehicle for <span className="text-primary-bright">Every Journey</span></h2>
-          <p className="mt-4 text-navy-foreground/70">Vehicle categories to match your group. Exact capacity and models will be confirmed with your booking.</p>
+          <h2 id="fleet-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] sm:text-4xl md:text-5xl">A Vehicle for <span className="text-primary-bright">Every Journey</span></h2>
+          <p className="mt-4 leading-7 text-navy-foreground/75">Vehicle categories to match your group. Exact capacity and models will be confirmed with your booking.</p>
         </Reveal>
-        <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {FLEET.map((f, i) => (
             <li key={f.name}>
               <Reveal delay={i * 80}>
                 <article className="group overflow-hidden rounded-3xl bg-navy-foreground/5 ring-1 ring-navy-foreground/10 transition-all hover:-translate-y-1 hover:ring-primary-bright/50">
                   <div className="aspect-[4/3] overflow-hidden">
-                    <img src={f.img} alt={f.alt} width={1024} height={768} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <img src={f.img} alt={f.alt} width={1024} height={768} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]" />
                   </div>
                   <div className="p-5">
                     <h3 className="text-lg font-bold">{f.name}</h3>
-                    <p className="mt-2 flex items-center gap-2 text-sm text-navy-foreground/70"><f.icon className="h-4 w-4 text-primary-bright" /> {f.use}</p>
+                    <p className="mt-2 flex items-center gap-2 text-[15px] text-navy-foreground/75"><f.icon className="h-4 w-4 text-primary-bright" /> {f.use}</p>
                   </div>
                 </article>
               </Reveal>
@@ -215,13 +217,13 @@ const STEPS = [
 
 export function HowItWorks() {
   return (
-    <section aria-labelledby="how-title" className="py-20 md:py-28">
+    <section aria-labelledby="how-title" className="py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
           <Eyebrow className="justify-center">How it works</Eyebrow>
-          <h2 id="how-title" className="mt-4 text-3xl font-extrabold text-navy sm:text-4xl md:text-5xl">Booking in <span className="text-primary">Three Steps</span></h2>
+          <h2 id="how-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">Booking in <span className="text-primary">Three Steps</span></h2>
         </Reveal>
-        <ol className="relative mt-14 grid gap-10 md:grid-cols-3 md:gap-6">
+        <ol className="relative mt-10 grid gap-8 md:grid-cols-3 md:gap-6">
           <span aria-hidden className="absolute left-[16%] right-[16%] top-8 hidden border-t-2 border-dashed border-primary/30 md:block" />
           {STEPS.map((s, i) => (
             <li key={s.title} className="relative text-center">
@@ -231,7 +233,7 @@ export function HowItWorks() {
                   <span className="absolute -right-1 -top-1 grid h-6 w-6 place-items-center rounded-full bg-coral text-xs font-bold text-coral-foreground">{i + 1}</span>
                 </span>
                 <h3 className="mt-6 text-xl font-bold text-navy">{s.title}</h3>
-                <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">{s.text}</p>
+                <p className="mx-auto mt-2 max-w-xs text-[15px] leading-6 text-muted-foreground">{s.text}</p>
               </Reveal>
             </li>
           ))}
@@ -255,22 +257,22 @@ const COUNTRIES = [
 
 export function Destinations() {
   return (
-    <section id="countries" aria-labelledby="dest-title" className="bg-pale py-20 md:py-28">
+    <section id="countries" aria-labelledby="dest-title" className="bg-pale py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <Eyebrow>Destinations</Eyebrow>
-            <h2 id="dest-title" className="mt-4 text-3xl font-extrabold text-navy sm:text-4xl md:text-5xl">Popular Destinations <span className="text-primary">Across Europe</span></h2>
+            <h2 id="dest-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">Popular Destinations <span className="text-primary">Across Europe</span></h2>
           </div>
         </Reveal>
-        <ul className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
+        <ul className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
           {COUNTRIES.map((c, i) => (
-            <li key={c.name} className={i === 0 || i === 5 ? "md:col-span-2 md:row-span-2" : ""}>
+            <li key={c.name}>
               <Reveal delay={(i % 4) * 70} className="h-full">
-                <figure className="group relative h-full min-h-44 overflow-hidden rounded-3xl shadow-soft sm:min-h-56">
-                  <img src={c.img} alt={c.alt} width={816} height={816} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-overlay/75 via-transparent to-transparent" />
-                  <figcaption className="absolute bottom-4 left-4 font-display text-lg font-bold text-navy-foreground sm:text-2xl">{c.name}</figcaption>
+                <figure className="group relative aspect-[4/5] overflow-hidden rounded-3xl shadow-soft ring-1 ring-overlay/5">
+                  <img src={c.img} alt={c.alt} width={816} height={816} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover contrast-[1.04] saturate-[1.03] transition-transform duration-500 ease-out group-hover:scale-[1.05]" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-overlay/90 via-overlay/20 to-transparent transition-opacity duration-500 group-hover:opacity-90" />
+                  <figcaption className="absolute inset-x-3 bottom-3 rounded-2xl bg-overlay/25 px-3 py-2.5 font-display text-base font-bold text-navy-foreground backdrop-blur-sm sm:inset-x-4 sm:bottom-4 sm:text-xl">{c.name}</figcaption>
                 </figure>
               </Reveal>
             </li>
@@ -291,11 +293,11 @@ const JOURNEY = [
 
 export function Trust() {
   return (
-    <section aria-labelledby="trust-title" className="py-20 md:py-28">
-      <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
+    <section aria-labelledby="trust-title" className="py-16 md:py-20">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
         <Reveal>
           <Eyebrow>Your journey</Eyebrow>
-          <h2 id="trust-title" className="mt-4 text-3xl font-extrabold text-navy sm:text-4xl md:text-5xl">A Calmer Way to <span className="text-primary">Arrive</span></h2>
+          <h2 id="trust-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">A Calmer Way to <span className="text-primary">Arrive</span></h2>
           <p className="mt-5 leading-relaxed text-muted-foreground">From the moment you search to the moment you reach your door, the focus is on a simple, predictable transfer.</p>
           <div className="mt-8 flex items-center gap-4 rounded-3xl bg-gradient-teal p-6 text-primary-foreground shadow-float">
             <Compass className="h-10 w-10 shrink-0" />
@@ -309,7 +311,7 @@ export function Trust() {
                 <article className="h-full rounded-3xl border border-border bg-card p-6 transition-shadow hover:shadow-soft">
                   <span className="grid h-11 w-11 place-items-center rounded-2xl bg-pale text-primary"><j.icon className="h-5 w-5" /></span>
                   <h3 className="mt-5 text-lg font-bold text-navy">{j.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{j.text}</p>
+                  <p className="mt-2 text-[15px] leading-6 text-muted-foreground">{j.text}</p>
                 </article>
               </Reveal>
             </li>

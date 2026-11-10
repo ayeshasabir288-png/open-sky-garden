@@ -86,7 +86,9 @@
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
-  section[id] { scroll-margin-top: 6rem; }
+  h2 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  section[id], [id="book"] { scroll-margin-top: 6.5rem; }
 }
 
 @utility bg-gradient-teal { background-image: var(--gradient-teal); }

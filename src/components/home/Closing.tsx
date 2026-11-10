@@ -18,11 +18,11 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   const base = useId();
   return (
-    <section aria-labelledby="faq-title" className="bg-pale py-20 md:py-28">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
+    <section aria-labelledby="faq-title" className="bg-pale py-16 md:py-20">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
         <Reveal>
           <Eyebrow>FAQ</Eyebrow>
-          <h2 id="faq-title" className="mt-4 text-3xl font-extrabold text-navy sm:text-4xl md:text-5xl">Frequently Asked <span className="text-primary">Questions</span></h2>
+          <h2 id="faq-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">Frequently Asked <span className="text-primary">Questions</span></h2>
         </Reveal>
         <div className="divide-y divide-border rounded-3xl bg-card px-2 shadow-soft">
           {FAQS.map((f, i) => {
@@ -50,10 +50,10 @@ export function Faq() {
 
 export function FinalCta() {
   return (
-    <section aria-labelledby="cta-title" className="px-3 py-16 sm:px-6 md:py-24">
+    <section aria-labelledby="cta-title" className="px-3 py-12 sm:px-6 md:py-16">
       <Reveal>
-        <div className="relative isolate mx-auto max-w-6xl overflow-hidden rounded-[2rem] px-6 py-20 text-center sm:px-12 md:py-28">
-          <img src={cta} alt="" width={1920} height={832} loading="lazy" className="absolute inset-0 -z-20 h-full w-full object-cover" />
+        <div className="relative isolate mx-auto max-w-6xl overflow-hidden rounded-[2rem] px-6 py-16 text-center sm:px-12 md:py-20">
+          <img src={cta} alt="" width={1920} height={832} loading="lazy" decoding="async" className="absolute inset-0 -z-20 h-full w-full object-cover" />
           <div className="absolute inset-0 -z-10 bg-gradient-teal opacity-85 mix-blend-multiply" />
           <div className="absolute inset-0 -z-10 bg-gradient-to-t from-overlay/50 to-transparent" />
           <h2 id="cta-title" className="mx-auto max-w-2xl text-4xl font-extrabold text-primary-foreground sm:text-5xl md:text-6xl">Your Next Journey Starts Here</h2>
@@ -73,7 +73,7 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 lg:grid-cols-[1.3fr_0.8fr_1fr_1fr]">
         <div>
           <Logo inverted />
-          <p className="mt-5 max-w-xs text-sm leading-relaxed text-navy-foreground/65">Airport taxi and private transfer planning for travellers moving between European airports, cities and destinations.</p>
+          <p className="mt-5 max-w-xs text-sm leading-6 text-navy-foreground/75">Airport taxi and private transfer planning for travellers moving between European airports, cities and destinations.</p>
         </div>
         <nav aria-label="Footer">
           <h3 className="text-sm font-semibold uppercase tracking-widest text-primary-bright">Navigate</h3>
@@ -101,9 +101,9 @@ export function SiteFooter() {
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-xs text-navy-foreground/55 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p>© {new Date().getFullYear()} Europe Airport Taxi</p>
           <ul className="flex flex-wrap gap-4">
-            <li>Privacy Policy (coming soon)</li>
-            <li>Terms and Conditions (coming soon)</li>
-            <li>Cookie Policy (coming soon)</li>
+            <li>Privacy Policy <span className="text-navy-foreground/55">(placeholder)</span></li>
+            <li>Terms and Conditions <span className="text-navy-foreground/55">(placeholder)</span></li>
+            <li>Cookie Policy <span className="text-navy-foreground/55">(placeholder)</span></li>
           </ul>
         </div>
       </div>
