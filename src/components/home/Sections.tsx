@@ -179,20 +179,20 @@ const FLEET = [
 
 export function Fleet() {
   return (
-    <section id="fleet" aria-labelledby="fleet-title" className="bg-navy py-20 text-navy-foreground md:py-28">
+    <section id="fleet" aria-labelledby="fleet-title" className="bg-navy py-16 text-navy-foreground md:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="max-w-2xl">
           <Eyebrow className="text-primary-bright">Our fleet</Eyebrow>
-          <h2 id="fleet-title" className="mt-4 text-3xl font-extrabold sm:text-4xl md:text-5xl">A Vehicle for <span className="text-primary-bright">Every Journey</span></h2>
-          <p className="mt-4 text-navy-foreground/70">Vehicle categories to match your group. Exact capacity and models will be confirmed with your booking.</p>
+          <h2 id="fleet-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] sm:text-4xl md:text-5xl">A Vehicle for <span className="text-primary-bright">Every Journey</span></h2>
+          <p className="mt-4 leading-7 text-navy-foreground/75">Vehicle categories to match your group. Exact capacity and models will be confirmed with your booking.</p>
         </Reveal>
-        <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {FLEET.map((f, i) => (
             <li key={f.name}>
               <Reveal delay={i * 80}>
                 <article className="group overflow-hidden rounded-3xl bg-navy-foreground/5 ring-1 ring-navy-foreground/10 transition-all hover:-translate-y-1 hover:ring-primary-bright/50">
                   <div className="aspect-[4/3] overflow-hidden">
-                    <img src={f.img} alt={f.alt} width={1024} height={768} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <img src={f.img} alt={f.alt} width={1024} height={768} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]" />
                   </div>
                   <div className="p-5">
                     <h3 className="text-lg font-bold">{f.name}</h3>
@@ -262,17 +262,17 @@ export function Destinations() {
         <Reveal className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <Eyebrow>Destinations</Eyebrow>
-            <h2 id="dest-title" className="mt-4 text-3xl font-extrabold text-navy sm:text-4xl md:text-5xl">Popular Destinations <span className="text-primary">Across Europe</span></h2>
+            <h2 id="dest-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">Popular Destinations <span className="text-primary">Across Europe</span></h2>
           </div>
         </Reveal>
-        <ul className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
+        <ul className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
           {COUNTRIES.map((c, i) => (
-            <li key={c.name} className={i === 0 || i === 5 ? "md:col-span-2 md:row-span-2" : ""}>
+            <li key={c.name}>
               <Reveal delay={(i % 4) * 70} className="h-full">
-                <figure className="group relative h-full min-h-44 overflow-hidden rounded-3xl shadow-soft sm:min-h-56">
-                  <img src={c.img} alt={c.alt} width={816} height={816} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-overlay/75 via-transparent to-transparent" />
-                  <figcaption className="absolute bottom-4 left-4 font-display text-lg font-bold text-navy-foreground sm:text-2xl">{c.name}</figcaption>
+                <figure className="group relative aspect-[4/5] overflow-hidden rounded-3xl shadow-soft ring-1 ring-overlay/5">
+                  <img src={c.img} alt={c.alt} width={816} height={816} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover contrast-[1.04] saturate-[1.03] transition-transform duration-500 ease-out group-hover:scale-[1.05]" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-overlay/90 via-overlay/20 to-transparent transition-opacity duration-500 group-hover:opacity-90" />
+                  <figcaption className="absolute inset-x-3 bottom-3 rounded-2xl bg-overlay/25 px-3 py-2.5 font-display text-base font-bold text-navy-foreground backdrop-blur-sm sm:inset-x-4 sm:bottom-4 sm:text-xl">{c.name}</figcaption>
                 </figure>
               </Reveal>
             </li>

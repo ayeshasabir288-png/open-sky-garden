@@ -22,7 +22,7 @@ export function Faq() {
       <div className="mx-auto grid max-w-6xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
         <Reveal>
           <Eyebrow>FAQ</Eyebrow>
-          <h2 id="faq-title" className="mt-4 text-3xl font-extrabold text-navy sm:text-4xl md:text-5xl">Frequently Asked <span className="text-primary">Questions</span></h2>
+          <h2 id="faq-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">Frequently Asked <span className="text-primary">Questions</span></h2>
         </Reveal>
         <div className="divide-y divide-border rounded-3xl bg-card px-2 shadow-soft">
           {FAQS.map((f, i) => {
@@ -101,9 +101,9 @@ export function SiteFooter() {
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-xs text-navy-foreground/55 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p>© {new Date().getFullYear()} Europe Airport Taxi</p>
           <ul className="flex flex-wrap gap-4">
-            <li>Privacy Policy (coming soon)</li>
-            <li>Terms and Conditions (coming soon)</li>
-            <li>Cookie Policy (coming soon)</li>
+            <li>Privacy Policy <span className="text-navy-foreground/40">(placeholder)</span></li>
+            <li>Terms and Conditions <span className="text-navy-foreground/40">(placeholder)</span></li>
+            <li>Cookie Policy <span className="text-navy-foreground/40">(placeholder)</span></li>
           </ul>
         </div>
       </div>
