@@ -73,7 +73,7 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 lg:grid-cols-[1.3fr_0.8fr_1fr_1fr]">
         <div>
           <Logo inverted />
-          <p className="mt-5 max-w-xs text-sm leading-relaxed text-navy-foreground/65">Airport taxi and private transfer planning for travellers moving between European airports, cities and destinations.</p>
+          <p className="mt-5 max-w-xs text-sm leading-6 text-navy-foreground/75">Airport taxi and private transfer planning for travellers moving between European airports, cities and destinations.</p>
         </div>
         <nav aria-label="Footer">
           <h3 className="text-sm font-semibold uppercase tracking-widest text-primary-bright">Navigate</h3>
@@ -101,9 +101,9 @@ export function SiteFooter() {
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-xs text-navy-foreground/55 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p>© {new Date().getFullYear()} Europe Airport Taxi</p>
           <ul className="flex flex-wrap gap-4">
-            <li>Privacy Policy <span className="text-navy-foreground/40">(placeholder)</span></li>
-            <li>Terms and Conditions <span className="text-navy-foreground/40">(placeholder)</span></li>
-            <li>Cookie Policy <span className="text-navy-foreground/40">(placeholder)</span></li>
+            <li>Privacy Policy <span className="text-navy-foreground/55">(placeholder)</span></li>
+            <li>Terms and Conditions <span className="text-navy-foreground/55">(placeholder)</span></li>
+            <li>Cookie Policy <span className="text-navy-foreground/55">(placeholder)</span></li>
           </ul>
         </div>
       </div>

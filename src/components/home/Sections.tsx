@@ -49,7 +49,7 @@ export function Intro() {
                 <div className="absolute inset-0 bg-gradient-to-t from-overlay/85 via-overlay/15 to-transparent" />
                 <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between p-4 sm:p-5">
                   <span>
-                    <span className="block text-xs font-medium uppercase tracking-widest text-navy-foreground/75">{c.note}</span>
+                    <span className="block text-xs font-medium uppercase tracking-widest text-navy-foreground/85">{c.note}</span>
                     <span className="font-display text-xl font-bold text-navy-foreground sm:text-2xl">{c.name}</span>
                   </span>
                   <span className="grid h-9 w-9 place-items-center rounded-full bg-card/90 text-primary transition-transform group-hover:rotate-45"><ArrowUpRight className="h-4 w-4" /></span>
@@ -196,7 +196,7 @@ export function Fleet() {
                   </div>
                   <div className="p-5">
                     <h3 className="text-lg font-bold">{f.name}</h3>
-                    <p className="mt-2 flex items-center gap-2 text-sm text-navy-foreground/70"><f.icon className="h-4 w-4 text-primary-bright" /> {f.use}</p>
+                    <p className="mt-2 flex items-center gap-2 text-[15px] text-navy-foreground/75"><f.icon className="h-4 w-4 text-primary-bright" /> {f.use}</p>
                   </div>
                 </article>
               </Reveal>
@@ -221,9 +221,9 @@ export function HowItWorks() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
           <Eyebrow className="justify-center">How it works</Eyebrow>
-          <h2 id="how-title" className="mt-4 text-3xl font-extrabold text-navy sm:text-4xl md:text-5xl">Booking in <span className="text-primary">Three Steps</span></h2>
+          <h2 id="how-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">Booking in <span className="text-primary">Three Steps</span></h2>
         </Reveal>
-        <ol className="relative mt-14 grid gap-10 md:grid-cols-3 md:gap-6">
+        <ol className="relative mt-10 grid gap-8 md:grid-cols-3 md:gap-6">
           <span aria-hidden className="absolute left-[16%] right-[16%] top-8 hidden border-t-2 border-dashed border-primary/30 md:block" />
           {STEPS.map((s, i) => (
             <li key={s.title} className="relative text-center">
@@ -233,7 +233,7 @@ export function HowItWorks() {
                   <span className="absolute -right-1 -top-1 grid h-6 w-6 place-items-center rounded-full bg-coral text-xs font-bold text-coral-foreground">{i + 1}</span>
                 </span>
                 <h3 className="mt-6 text-xl font-bold text-navy">{s.title}</h3>
-                <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">{s.text}</p>
+                <p className="mx-auto mt-2 max-w-xs text-[15px] leading-6 text-muted-foreground">{s.text}</p>
               </Reveal>
             </li>
           ))}
@@ -294,10 +294,10 @@ const JOURNEY = [
 export function Trust() {
   return (
     <section aria-labelledby="trust-title" className="py-16 md:py-20">
-      <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
         <Reveal>
           <Eyebrow>Your journey</Eyebrow>
-          <h2 id="trust-title" className="mt-4 text-3xl font-extrabold text-navy sm:text-4xl md:text-5xl">A Calmer Way to <span className="text-primary">Arrive</span></h2>
+          <h2 id="trust-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">A Calmer Way to <span className="text-primary">Arrive</span></h2>
           <p className="mt-5 leading-relaxed text-muted-foreground">From the moment you search to the moment you reach your door, the focus is on a simple, predictable transfer.</p>
           <div className="mt-8 flex items-center gap-4 rounded-3xl bg-gradient-teal p-6 text-primary-foreground shadow-float">
             <Compass className="h-10 w-10 shrink-0" />
@@ -311,7 +311,7 @@ export function Trust() {
                 <article className="h-full rounded-3xl border border-border bg-card p-6 transition-shadow hover:shadow-soft">
                   <span className="grid h-11 w-11 place-items-center rounded-2xl bg-pale text-primary"><j.icon className="h-5 w-5" /></span>
                   <h3 className="mt-5 text-lg font-bold text-navy">{j.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{j.text}</p>
+                  <p className="mt-2 text-[15px] leading-6 text-muted-foreground">{j.text}</p>
                 </article>
               </Reveal>
             </li>
