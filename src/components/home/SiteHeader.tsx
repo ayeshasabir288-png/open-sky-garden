@@ -41,7 +41,7 @@ export function SiteHeader() {
           <ul className="flex items-center gap-1">
             {NAV.map((n) => (
               <li key={n.href}>
-                <a href={n.href} className="rounded-full px-3.5 py-2 text-sm font-medium text-navy/80 transition-colors hover:bg-pale hover:text-primary focus-visible:outline-2 focus-visible:outline-ring">
+                <a href={n.href} className="rounded-full px-3 py-1.5 text-sm font-medium text-navy/80 transition-colors hover:bg-pale hover:text-primary focus-visible:outline-2 focus-visible:outline-ring">
                   {n.label}
                 </a>
               </li>
@@ -49,12 +49,12 @@ export function SiteHeader() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <a href="#book" className="hidden rounded-full bg-gradient-teal px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-soft transition-transform hover:-translate-y-0.5 sm:inline-flex">
+          <a href="#book" className="hidden rounded-full bg-gradient-teal px-5 py-2 text-sm font-semibold text-primary-foreground shadow-soft transition-transform hover:-translate-y-0.5 sm:inline-flex">
             Book Now
           </a>
           <button
             type="button"
-            className="grid h-11 w-11 place-items-center rounded-full bg-pale text-navy lg:hidden"
+            className="grid h-10 w-10 place-items-center rounded-full bg-pale text-navy lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Close menu" : "Open menu"}

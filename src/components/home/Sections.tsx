@@ -25,13 +25,13 @@ const CITIES = [
 export function Intro() {
   return (
     <section id="about" aria-labelledby="intro-title" className="py-16 md:py-20">
-      <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <Reveal>
           <Eyebrow>About the service</Eyebrow>
-          <h2 id="intro-title" className="mt-4 text-3xl font-extrabold leading-tight text-navy sm:text-4xl md:text-5xl">
+          <h2 id="intro-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">
             Your Journey Across Europe <span className="text-primary">Starts Here</span>
           </h2>
-          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-5 text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
             Europe Airport Taxi helps you plan a private transfer between airports, hotels, city centres and other destinations. Instead of queuing for a taxi or juggling train connections with luggage, you arrange a vehicle in advance for your own group.
           </p>
           <p className="mt-4 leading-relaxed text-muted-foreground">
@@ -45,8 +45,8 @@ export function Intro() {
           {CITIES.map((c, i) => (
             <Reveal key={c.name} delay={i * 90} className={i % 2 === 1 ? "translate-y-8 sm:translate-y-12" : ""}>
               <figure className="group relative aspect-[3/4] overflow-hidden rounded-3xl shadow-soft">
-                <img src={c.img} alt={c.alt} width={768} height={1024} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-overlay/80 via-overlay/10 to-transparent" />
+                <img src={c.img} alt={c.alt} width={768} height={1024} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-overlay/85 via-overlay/15 to-transparent" />
                 <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between p-4 sm:p-5">
                   <span>
                     <span className="block text-xs font-medium uppercase tracking-widest text-navy-foreground/75">{c.note}</span>

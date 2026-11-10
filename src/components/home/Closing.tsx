@@ -19,7 +19,7 @@ export function Faq() {
   const base = useId();
   return (
     <section aria-labelledby="faq-title" className="bg-pale py-16 md:py-20">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
         <Reveal>
           <Eyebrow>FAQ</Eyebrow>
           <h2 id="faq-title" className="mt-4 text-3xl font-extrabold text-navy sm:text-4xl md:text-5xl">Frequently Asked <span className="text-primary">Questions</span></h2>
