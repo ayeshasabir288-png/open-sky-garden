@@ -138,24 +138,26 @@ export function Airports() {
   return (
     <section id="airports" aria-labelledby="airports-title" className="py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <Reveal className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div className="max-w-xl">
             <Eyebrow>European airports</Eyebrow>
-            <h2 id="airports-title" className="mt-4 text-3xl font-extrabold text-navy sm:text-4xl md:text-5xl">Major Airports <span className="text-primary">Across Europe</span></h2>
+            <h2 id="airports-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">Major Airports <span className="text-primary">Across Europe</span></h2>
           </div>
-          <p className="max-w-sm text-muted-foreground">Popular hubs travellers often ask about. Enter your airport in the booking form to plan a transfer.</p>
+          <p className="max-w-sm leading-7 text-muted-foreground">Popular hubs travellers often ask about. Enter your airport in the booking form to plan a transfer.</p>
         </Reveal>
-        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {AIRPORTS.map((a, i) => (
-            <li key={a.code}>
-              <Reveal delay={i * 70}>
-                <article className="group relative overflow-hidden rounded-3xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-float">
-                  <span aria-hidden className="absolute -right-4 -top-6 font-display text-8xl font-extrabold text-pale transition-colors group-hover:text-accent">{a.code}</span>
-                  <div className="relative">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-pale px-3 py-1 text-xs font-bold tracking-widest text-primary"><Plane className="h-3.5 w-3.5" /> {a.code}</span>
-                    <h3 className="mt-5 text-xl font-bold text-navy">{a.name}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground">{a.city} · {a.country}</p>
-                    <a href="#book" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">Plan a transfer <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></a>
+            <li key={a.code} className="h-full">
+              <Reveal delay={i * 70} className="h-full">
+                <article className="group relative flex h-full min-h-60 flex-col overflow-hidden rounded-3xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-float focus-within:border-primary/40 sm:p-7">
+                  <span aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <span aria-hidden className="absolute -right-10 -top-12 h-36 w-36 rounded-full bg-pale transition-transform duration-500 group-hover:scale-110" />
+                  <span aria-hidden className="absolute -right-2 -top-5 font-display text-7xl font-extrabold tracking-tighter text-pale transition-colors duration-300 group-hover:text-accent">{a.code}</span>
+                  <div className="relative flex h-full flex-col">
+                    <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-pale px-3 py-1.5 text-[11px] font-bold tracking-widest text-primary ring-1 ring-primary/10"><Plane className="h-3.5 w-3.5" /> {a.code}</span>
+                    <h3 className="mt-6 max-w-64 text-xl font-bold leading-snug text-navy">{a.name}</h3>
+                    <p className="mt-2 text-[15px] leading-6 text-muted-foreground">{a.city} · {a.country}</p>
+                    <a href="#book" className="mt-auto inline-flex w-fit items-center gap-1.5 pt-6 text-sm font-semibold text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring">Plan a transfer <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" /></a>
                   </div>
                 </article>
               </Reveal>
