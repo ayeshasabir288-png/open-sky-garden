@@ -4,7 +4,7 @@ import paris from "@/assets/city-paris.jpg";
 import amsterdam from "@/assets/city-amsterdam.jpg";
 import barcelona from "@/assets/city-barcelona.jpg";
 import rome from "@/assets/city-rome.jpg";
-import sedanTop from "@/assets/sedan-top.png";
+import sedanTop from "@/assets/sedan-top.webp";
 import economy from "@/assets/fleet-economy-sedan.jpg";
 import business from "@/assets/fleet-business-sedan.jpg";
 import van from "@/assets/fleet-business-van.jpg";
@@ -24,7 +24,7 @@ const CITIES = [
 
 export function Intro() {
   return (
-    <section id="about" aria-labelledby="intro-title" className="py-20 md:py-28">
+    <section id="about" aria-labelledby="intro-title" className="py-16 md:py-20">
       <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <Reveal>
           <Eyebrow>About the service</Eyebrow>
@@ -77,7 +77,7 @@ export function Benefits() {
   const left = BENEFITS.slice(0, 3);
   const right = BENEFITS.slice(3);
   return (
-    <section id="services" aria-labelledby="benefits-title" className="relative overflow-hidden bg-pale py-20 md:py-28">
+    <section id="services" aria-labelledby="benefits-title" className="relative overflow-hidden bg-pale py-16 md:py-20">
       <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 h-[42rem] w-[42rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/10" />
       <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/15" />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
@@ -136,7 +136,7 @@ const AIRPORTS = [
 
 export function Airports() {
   return (
-    <section id="airports" aria-labelledby="airports-title" className="py-20 md:py-28">
+    <section id="airports" aria-labelledby="airports-title" className="py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-xl">
@@ -215,7 +215,7 @@ const STEPS = [
 
 export function HowItWorks() {
   return (
-    <section aria-labelledby="how-title" className="py-20 md:py-28">
+    <section aria-labelledby="how-title" className="py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
           <Eyebrow className="justify-center">How it works</Eyebrow>
@@ -255,7 +255,7 @@ const COUNTRIES = [
 
 export function Destinations() {
   return (
-    <section id="countries" aria-labelledby="dest-title" className="bg-pale py-20 md:py-28">
+    <section id="countries" aria-labelledby="dest-title" className="bg-pale py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
@@ -291,7 +291,7 @@ const JOURNEY = [
 
 export function Trust() {
   return (
-    <section aria-labelledby="trust-title" className="py-20 md:py-28">
+    <section aria-labelledby="trust-title" className="py-16 md:py-20">
       <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
         <Reveal>
           <Eyebrow>Your journey</Eyebrow>

@@ -29,10 +29,10 @@ export function SiteHeader() {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-3 z-50 px-3 sm:top-5 sm:px-6">
+    <header className="fixed inset-x-0 top-2 z-50 px-3 sm:top-4 sm:px-6">
       <div
         className={cn(
-          "mx-auto flex max-w-6xl items-center justify-between rounded-full border border-card/60 bg-card/85 py-2 pl-4 pr-2 backdrop-blur-xl transition-shadow",
+          "mx-auto flex max-w-6xl items-center justify-between rounded-full border border-card/60 bg-card/85 py-1.5 pl-3.5 pr-1.5 backdrop-blur-xl transition-shadow",
           scrolled ? "shadow-float" : "shadow-soft",
         )}
       >

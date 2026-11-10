@@ -18,7 +18,7 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   const base = useId();
   return (
-    <section aria-labelledby="faq-title" className="bg-pale py-20 md:py-28">
+    <section aria-labelledby="faq-title" className="bg-pale py-16 md:py-20">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
         <Reveal>
           <Eyebrow>FAQ</Eyebrow>
