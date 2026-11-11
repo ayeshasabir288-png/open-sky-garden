@@ -6,12 +6,13 @@ import { NAV } from "./SiteHeader";
 import { cn } from "@/lib/utils";
 
 export const FAQS = [
-  { q: "How can I book an airport taxi?", a: "Enter your pickup and drop-off locations, date, time and number of passengers in the booking form at the top of this page. Online booking is being connected; until then the form shows a preview of your search." },
-  { q: "Can I arrange a transfer from an airport to a hotel?", a: "Yes. Enter the airport as your pickup location and your hotel name or address as the drop-off location." },
-  { q: "Can I book a return journey?", a: "The booking form includes a return journey option where you can add a return date and time alongside your outward trip." },
-  { q: "What types of vehicles can I choose?", a: "Vehicle categories include Economy Sedan, Business Sedan, Business Van and Minibus. Exact models and capacity are confirmed with each booking." },
-  { q: "Can I request a transfer to another European city?", a: "You can enter any destination in the form. Availability for longer cross-border routes depends on the specific journey and will be confirmed when booking." },
-  { q: "How will I receive my booking details?", a: "Once online booking is live, booking details will be provided after you confirm. Until then, please use the contact details below for any questions." },
+  { q: "How do I arrange an airport taxi transfer?", a: "Enter your pickup and drop-off locations, date, time and number of passengers in the form at the top of this page, then choose a vehicle category. Online booking is still being connected, so the form currently shows a summary of your request rather than a confirmed booking." },
+  { q: "Can I request an airport to hotel transfer?", a: "Yes. Enter the airport as your pickup location and the hotel name or address as your drop-off." },
+  { q: "Can I book a return journey?", a: "The form has a return journey option where you add a return date and time alongside your outward trip." },
+  { q: "Which vehicle should I choose for my luggage?", a: "As a guide, sedans suit one to three passengers with standard suitcases, the Business Van suits families and small groups, and the Minibus suits larger groups or bulky items. Exact capacity is confirmed for each journey." },
+  { q: "Can I request a transfer between European cities?", a: "Yes, you can enter any destination. Longer and cross-border routes are checked individually, and availability is confirmed before travel." },
+  { q: "How will my transfer price be confirmed?", a: "Prices are not shown on the site yet. The price depends on the route, date and vehicle and will be confirmed with you before the journey." },
+  { q: "What information is needed for airport pickup?", a: "The airport, your arrival date and time, flight number, number of passengers and amount of luggage, and the drop-off address." },
 ];
 
 export function Faq() {

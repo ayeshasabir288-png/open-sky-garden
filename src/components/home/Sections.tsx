@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, Briefcase, CalendarCheck, CarFront, ClipboardList, DoorOpen, Globe2, MapPinned, MousePointerClick, Plane, Repeat, Route, ShieldCheck, Sofa, Users, Headset, Luggage, Compass } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Briefcase, CalendarCheck, CarFront, ClipboardList, DoorOpen, Globe2, MapPinned, MousePointerClick, Plane, Repeat, Route, ShieldCheck, Sofa, Users, Headset, Luggage, Compass, Building2 } from "lucide-react";
 import { Eyebrow, Reveal } from "./primitives";
 import paris from "@/assets/city-paris.jpg";
 import amsterdam from "@/assets/city-amsterdam.jpg";
@@ -32,10 +32,10 @@ export function Intro() {
             Your Journey Across Europe <span className="text-primary">Starts Here</span>
           </h2>
           <p className="mt-5 text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-            Europe Airport Taxi helps you plan a private transfer between airports, hotels, city centres and other destinations. Instead of queuing for a taxi or juggling train connections with luggage, you arrange a vehicle in advance for your own group.
+            Europe Airport Taxi is for travellers who want a private vehicle waiting for their own group rather than a taxi queue or a train change with luggage. You can plan airport pickups and drop-offs, airport to hotel journeys, transfers within a city and longer trips between cities.
           </p>
           <p className="mt-4 leading-relaxed text-muted-foreground">
-            Tell us where you're landing and where you need to go. Choose a vehicle that suits your group, add a return trip if you need one, and travel on to your destination.
+            To start, enter your pickup and drop-off points, travel date, time and passenger numbers in the form above. Online booking is still being connected, so the form currently shows a summary of your journey request.
           </p>
           <a href="#book" className="mt-8 inline-flex items-center gap-2 font-semibold text-primary hover:gap-3 transition-all">
             Plan a transfer <ArrowRight className="h-4 w-4" />
@@ -65,12 +65,12 @@ export function Intro() {
 
 /* ---------- Benefits ---------- */
 const BENEFITS = [
-  { icon: Plane, title: "Airport Pickup", text: "Arrange a pickup from the airport so your onward journey is planned before you land." },
+  { icon: Plane, title: "Airport Pickup", text: "Your onward journey is planned before you land, so there is no need to find transport at the terminal." },
   { icon: DoorOpen, title: "Door-to-Door Transfers", text: "Travel directly from the terminal to your hotel, home or meeting address." },
   { icon: Sofa, title: "Comfortable Vehicles", text: "Choose from sedans, vans and minibuses to suit your group and luggage." },
-  { icon: MousePointerClick, title: "Simple Booking", text: "Enter your route, date and passengers in one clear search form." },
+  { icon: MousePointerClick, title: "Simple Booking", text: "Route, date, time and passengers are entered in one short form." },
   { icon: Repeat, title: "Flexible Journey Options", text: "Plan a one-way trip or add a return journey in the same search." },
-  { icon: Globe2, title: "European Destinations", text: "Plan transfers around major airports and cities across Europe." },
+  { icon: Globe2, title: "European Destinations", text: "Enter airports and cities in several European countries; each route is checked individually." },
 ];
 
 export function Benefits() {
@@ -86,7 +86,7 @@ export function Benefits() {
           <h2 id="benefits-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">
             Why Choose <span className="text-primary">Europe Airport Taxi</span>
           </h2>
-          <p className="mt-4 leading-7 text-muted-foreground">A private transfer designed around the way you travel.</p>
+          <p className="mt-4 leading-7 text-muted-foreground">What a pre-arranged private transfer changes about your arrival.</p>
         </Reveal>
         <div className="mt-10 grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(15rem,0.8fr)_minmax(0,1fr)] lg:gap-8">
           <ul className="grid gap-6 sm:grid-cols-3 lg:grid-cols-1 lg:grid-rows-3">
@@ -164,17 +164,35 @@ export function Airports() {
             </li>
           ))}
         </ul>
+        <Reveal className="mt-10 rounded-3xl border border-border bg-pale p-6 sm:p-8">
+          <h3 className="text-xl font-bold text-navy">Popular Airport Transfer Routes</h3>
+          <p className="mt-2 text-[15px] leading-6 text-muted-foreground">Example journeys travellers plan. Prices and journey times depend on the route, date and vehicle and are not shown until confirmed.</p>
+          <ul className="mt-5 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+            {ROUTES.map((r) => (
+              <li key={r} className="flex items-center gap-2 rounded-2xl bg-card px-4 py-3 text-[15px] font-semibold text-navy shadow-soft"><Route className="h-4 w-4 shrink-0 text-primary" /> {r}</li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
     </section>
   );
 }
 
+const ROUTES = [
+  "Paris CDG to central Paris",
+  "Amsterdam Schiphol to Amsterdam city centre",
+  "Frankfurt Airport to Frankfurt city centre",
+  "Barcelona–El Prat to Barcelona hotels",
+  "Rome Fiumicino to central Rome",
+  "London Heathrow to central London",
+];
+
 /* ---------- Fleet ---------- */
 const FLEET = [
-  { name: "Economy Sedan", img: economy, alt: "Black economy sedan on a European city street", use: "Solo travellers and couples", icon: CarFront },
-  { name: "Business Sedan", img: business, alt: "Black executive sedan at an airport departures curb", use: "Business trips and extra comfort", icon: Briefcase },
-  { name: "Business Van", img: van, alt: "Black passenger van at airport arrivals", use: "Families and small groups", icon: Users },
-  { name: "Minibus", img: minibus, alt: "Black passenger minibus outside an airport terminal", use: "Larger groups and extra luggage", icon: Luggage },
+  { name: "Economy Sedan", img: economy, alt: "Black economy sedan on a European city street", use: "Suited to one to three passengers with standard luggage", icon: CarFront },
+  { name: "Business Sedan", img: business, alt: "Black executive sedan at an airport departures curb", use: "Suited to business travellers wanting a more spacious car", icon: Briefcase },
+  { name: "Business Van", img: van, alt: "Black passenger van at airport arrivals", use: "Suited to families and small groups with several suitcases", icon: Users },
+  { name: "Minibus", img: minibus, alt: "Black passenger minibus outside an airport terminal", use: "Suited to larger groups, sports gear or bulky luggage", icon: Luggage },
 ];
 
 export function Fleet() {
@@ -184,7 +202,7 @@ export function Fleet() {
         <Reveal className="max-w-2xl">
           <Eyebrow className="text-primary-bright">Our fleet</Eyebrow>
           <h2 id="fleet-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] sm:text-4xl md:text-5xl">A Vehicle for <span className="text-primary-bright">Every Journey</span></h2>
-          <p className="mt-4 leading-7 text-navy-foreground/75">Vehicle categories to match your group. Exact capacity and models will be confirmed with your booking.</p>
+          <p className="mt-4 leading-7 text-navy-foreground/75">Choose by group size and luggage. The descriptions are a guide only; exact passenger and luggage capacity and vehicle models are confirmed for each journey.</p>
         </Reveal>
         <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {FLEET.map((f, i) => (
@@ -212,7 +230,7 @@ export function Fleet() {
 const STEPS = [
   { icon: Route, title: "Enter Your Journey", text: "Add your pickup, drop-off, date, time and number of passengers." },
   { icon: CarFront, title: "Choose Your Transfer", text: "Pick the vehicle category that suits your group and luggage." },
-  { icon: CalendarCheck, title: "Confirm Your Booking", text: "Review your details and confirm. Online confirmation is coming soon." },
+  { icon: CalendarCheck, title: "Review Your Request", text: "Check the journey summary. Online confirmation and payment are not available yet." },
 ];
 
 export function HowItWorks() {
@@ -221,7 +239,7 @@ export function HowItWorks() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
           <Eyebrow className="justify-center">How it works</Eyebrow>
-          <h2 id="how-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">Booking in <span className="text-primary">Three Steps</span></h2>
+          <h2 id="how-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">How Airport Taxi <span className="text-primary">Booking Works</span></h2>
         </Reveal>
         <ol className="relative mt-10 grid gap-8 md:grid-cols-3 md:gap-6">
           <span aria-hidden className="absolute left-[16%] right-[16%] top-8 hidden border-t-2 border-dashed border-primary/30 md:block" />
@@ -264,6 +282,7 @@ export function Destinations() {
             <Eyebrow>Destinations</Eyebrow>
             <h2 id="dest-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">Popular Destinations <span className="text-primary">Across Europe</span></h2>
           </div>
+          <p className="max-w-sm leading-7 text-muted-foreground">Countries travellers often plan trips to. Coverage is checked route by route, so availability for a specific airport or address is confirmed when you make a request.</p>
         </Reveal>
         <ul className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
           {COUNTRIES.map((c, i) => (
@@ -288,7 +307,7 @@ const JOURNEY = [
   { icon: ClipboardList, title: "Clear details up front", text: "Your route, date, time and passenger count are captured in one place before you travel." },
   { icon: MapPinned, title: "Direct to your address", text: "A private transfer takes your group straight to where you need to be, without changes." },
   { icon: ShieldCheck, title: "Plan before you fly", text: "Arranging your ride in advance means one less thing to organise after landing." },
-  { icon: Headset, title: "Questions welcome", text: "Get in touch before booking if you have special requests about your journey." },
+  { icon: Headset, title: "Support before you travel", text: "Contact details are listed at the bottom of this page for questions or special requests." },
 ];
 
 export function Trust() {
@@ -298,7 +317,7 @@ export function Trust() {
         <Reveal>
           <Eyebrow>Your journey</Eyebrow>
           <h2 id="trust-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">A Calmer Way to <span className="text-primary">Arrive</span></h2>
-          <p className="mt-5 leading-relaxed text-muted-foreground">From the moment you search to the moment you reach your door, the focus is on a simple, predictable transfer.</p>
+          <p className="mt-5 leading-relaxed text-muted-foreground">You send the journey details; the route, vehicle and price are then confirmed with you before travel. Details of how each transfer is carried out will be published here once finalised.</p>
           <div className="mt-8 flex items-center gap-4 rounded-3xl bg-gradient-teal p-6 text-primary-foreground shadow-float">
             <Compass className="h-10 w-10 shrink-0" />
             <p className="font-display text-lg font-bold leading-snug">Land, meet your ride, and continue your journey.</p>
@@ -322,3 +341,67 @@ export function Trust() {
   );
 }
 
+
+/* ---------- Services ---------- */
+const SERVICES = [
+  { icon: Plane, title: "Airport Pickup and Drop-off", text: "Travel to or from the terminal at a time you choose, with luggage loaded at the kerb." },
+  { icon: Building2, title: "Airport to Hotel Transfers", text: "Go straight from arrivals to your hotel entrance, using the hotel name or address as your drop-off." },
+  { icon: MapPinned, title: "Private City Transfers", text: "Move between stations, offices, venues and hotels within a city in a vehicle for your group only." },
+  { icon: Route, title: "Long-Distance Transfers", text: "Request a journey between cities or across borders; each long route is reviewed before it is confirmed." },
+];
+
+export function Services() {
+  return (
+    <section id="transfer-services" aria-labelledby="services-title" className="pb-16 md:pb-20">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <Reveal className="max-w-2xl">
+          <Eyebrow>Transfer types</Eyebrow>
+          <h2 id="services-title" className="mt-4 text-[2rem] font-extrabold leading-[1.12] text-navy sm:text-4xl md:text-5xl">Airport Taxi Services <span className="text-primary">Across Europe</span></h2>
+        </Reveal>
+        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {SERVICES.map((sv, i) => (
+            <li key={sv.title} className="h-full">
+              <Reveal delay={i * 80} className="h-full">
+                <article className="h-full rounded-3xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-soft">
+                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-teal text-primary-foreground shadow-soft"><sv.icon className="h-5 w-5" /></span>
+                  <h3 className="mt-5 text-lg font-bold leading-snug text-navy">{sv.title}</h3>
+                  <p className="mt-2 text-[15px] leading-6 text-muted-foreground">{sv.text}</p>
+                </article>
+              </Reveal>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Pickup info ---------- */
+const PICKUP = [
+  { title: "Select an airport pickup", text: "Enter the airport name or code as your pickup location." },
+  { title: "Share your flight details", text: "Keep your flight number and arrival time ready so the pickup time can be agreed." },
+  { title: "Confirm the pickup point", text: "The exact meeting point at the terminal is agreed with you before travel." },
+  { title: "Passengers and luggage", text: "Give the number of passengers and large items so a suitable vehicle is chosen." },
+  { title: "Receive journey details", text: "Journey details are sent once your request is confirmed. Online confirmation is not live yet." },
+];
+
+export function PickupInfo() {
+  return (
+    <section aria-labelledby="pickup-title" className="pb-16 md:pb-20">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <Reveal className="rounded-[2rem] bg-pale p-6 sm:p-10">
+          <h2 id="pickup-title" className="text-[1.75rem] font-extrabold leading-[1.15] text-navy sm:text-4xl">Airport Pickup <span className="text-primary">Information</span></h2>
+          <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            {PICKUP.map((p, i) => (
+              <li key={p.title} className="rounded-2xl bg-card p-5 shadow-soft">
+                <span className="font-display text-sm font-extrabold text-primary">0{i + 1}</span>
+                <h3 className="mt-2 font-bold leading-snug text-navy">{p.title}</h3>
+                <p className="mt-1.5 text-sm leading-6 text-muted-foreground">{p.text}</p>
+              </li>
+            ))}
+          </ol>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
