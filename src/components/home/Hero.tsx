@@ -35,10 +35,10 @@ export function Hero() {
             <span className="h-1.5 w-1.5 rounded-full bg-primary-bright" /> Airport taxi & private transfers
           </p>
           <h1 id="hero-title" className="animate-rise mt-5 text-4xl font-extrabold leading-[1.05] text-navy-foreground sm:text-5xl md:text-6xl lg:text-7xl" style={{ animationDelay: "80ms" }}>
-            Book Your <span className="text-primary-bright">Airport Taxi</span> Across <span className="text-primary-bright">Europe</span>
+            <span className="text-primary-bright">Airport Taxi</span> Transfers Across <span className="text-primary-bright">Europe</span>
           </h1>
           <p className="animate-rise mt-5 max-w-xl text-base leading-relaxed text-navy-foreground/85 sm:text-lg" style={{ animationDelay: "160ms" }}>
-            Reliable airport taxi and private transfer services connecting major European airports, cities and destinations. Plan your journey with a simple booking experience.
+            Arrange airport taxi and private transfer journeys between major European airports, cities and destinations. Enter your pickup and drop-off details to start planning your journey.
           </p>
         </div>
         <div className="animate-rise mt-8 md:mt-12" style={{ animationDelay: "260ms" }}>
