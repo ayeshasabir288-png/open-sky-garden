@@ -19,7 +19,7 @@ export function Hero() {
   const [active, setActive] = useState(0);
   const [auto, setAuto] = useState(false); // enabled after mount unless reduced motion
   const [paused, setPaused] = useState(false);
-  const resumeT = useRef<ReturnType<typeof setTimeout>>();
+  const resumeT = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
