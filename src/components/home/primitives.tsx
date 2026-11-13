@@ -1,25 +1,32 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
+/**
+ * Content is visible by default (server HTML, no JS, failed scripts, reduced motion).
+ * Only elements still below the fold after hydration are briefly hidden, then fade in on scroll.
+ */
 export function Reveal({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (el.getBoundingClientRect().top < window.innerHeight) return;
+    el.classList.add("reveal-pending");
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) {
-          el.classList.add("is-visible");
+          el.classList.remove("reveal-pending");
           io.disconnect();
         }
       },
-      { threshold: 0.12 },
+      { threshold: 0, rootMargin: "0px 0px -8% 0px" },
     );
     io.observe(el);
-    return () => io.disconnect();
+    return () => { io.disconnect(); el.classList.remove("reveal-pending"); };
   }, []);
   return (
-    <div ref={ref} className={cn("reveal", className)} style={{ transitionDelay: `${delay}ms` }}>
+    <div ref={ref} className={cn("reveal", className)} style={{ transitionDelay: `${Math.min(delay, 150)}ms` }}>
       {children}
     </div>
   );

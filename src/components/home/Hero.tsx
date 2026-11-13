@@ -31,17 +31,17 @@ export function Hero() {
 
       <div className="mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-4 pt-32 pb-10 sm:px-6 md:pt-40 md:pb-16">
         <div className="max-w-2xl">
-          <p className="animate-rise inline-flex items-center gap-2 rounded-full border border-navy-foreground/25 bg-navy-foreground/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-navy-foreground backdrop-blur">
+          <p className="inline-flex items-center gap-2 rounded-full border border-navy-foreground/25 bg-navy-foreground/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-navy-foreground backdrop-blur">
             <span className="h-1.5 w-1.5 rounded-full bg-primary-bright" /> Airport taxi & private transfers
           </p>
-          <h1 id="hero-title" className="animate-rise mt-5 text-4xl font-extrabold leading-[1.05] text-navy-foreground sm:text-5xl md:text-6xl lg:text-7xl" style={{ animationDelay: "80ms" }}>
+          <h1 id="hero-title" className="mt-5 text-4xl font-extrabold leading-[1.05] text-navy-foreground sm:text-5xl md:text-6xl lg:text-7xl">
             <span className="text-primary-bright">Airport Taxi</span> Transfers Across <span className="text-primary-bright">Europe</span>
           </h1>
-          <p className="animate-rise mt-5 max-w-xl text-base leading-relaxed text-navy-foreground/85 sm:text-lg" style={{ animationDelay: "160ms" }}>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-navy-foreground/85 sm:text-lg">
             Arrange airport taxi and private transfer journeys between major European airports, cities and destinations. Enter your pickup and drop-off details to start planning your journey.
           </p>
         </div>
-        <div className="animate-rise mt-8 md:mt-12" style={{ animationDelay: "260ms" }}>
+        <div className="mt-8 md:mt-12">
           <BookingForm />
         </div>
       </div>

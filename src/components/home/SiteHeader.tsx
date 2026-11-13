@@ -65,7 +65,7 @@ export function SiteHeader() {
         </div>
       </div>
       {open && (
-        <nav id="mobile-nav" aria-label="Mobile" className="mx-auto mt-2 max-w-6xl animate-rise rounded-3xl border border-border bg-card p-3 shadow-float lg:hidden">
+        <nav id="mobile-nav" aria-label="Mobile" className="mx-auto mt-2 max-w-6xl rounded-3xl border border-border bg-card p-3 shadow-float lg:hidden">
           <ul className="grid gap-1">
             {NAV.map((n) => (
               <li key={n.href}>
