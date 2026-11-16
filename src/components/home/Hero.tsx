@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import slideAirport from "@/assets/hero-slide-sedan-airport.jpg";
-import slideVan from "@/assets/hero-slide-van-highway.jpg";
-import slideHotel from "@/assets/hero-slide-sedan-hotel.jpg";
-import slideAerial from "@/assets/hero-aerial.jpg";
+import slideRiver from "@/assets/hero-slide-river-town-aerial.jpg";
+import slideFamily from "@/assets/hero-slide-family-resort.jpg";
+import slideMarina from "@/assets/hero-slide-marina-sunset.jpg";
 import { BookingForm } from "./BookingForm";
 import { cn } from "@/lib/utils";
 
@@ -20,34 +20,34 @@ const SLIDES = [
     text: "Explore airport taxi and private transfer journeys between European airports, cities and destinations.",
   },
   {
-    img: slideVan,
-    alt: "Black executive van travelling along a scenic European mountain highway",
+    img: slideRiver,
+    alt: "Aerial view of a black sedan on a winding road above a turquoise river, stone bridge and historic hillside town at sunset",
     title: (
       <>
-        Comfortable Transfers for <span className="text-primary-bright">Every Journey</span>
+        Discover <span className="text-primary-bright">Europe</span> in Comfort
       </>
     ),
-    text: "Explore vehicle options for individuals, families and groups, with journey details tailored to your requirements.",
+    text: "Travel across beautiful European routes with comfortable private transfers designed for airports, cities and holiday destinations.",
   },
   {
-    img: slideHotel,
-    alt: "Black executive sedan arriving outside an elegant European hotel at dusk",
+    img: slideFamily,
+    alt: "Family arriving at a Mediterranean coastal resort while a chauffeur unloads suitcases from a black executive van",
     title: (
       <>
-        From Airports to <span className="text-primary-bright">Hotels</span> and City Destinations
+        <span className="text-primary-bright">Family Transfers</span> for Holidays and Tours
       </>
     ),
-    text: "Plan airport pickups, hotel transfers and journeys to your chosen destination through one simple interface.",
+    text: "Plan comfortable transfer journeys for families, couples and groups travelling to resorts, hotels and popular European destinations.",
   },
   {
-    img: slideAerial,
-    alt: "Aerial view of black vehicles travelling on a European motorway beside a river and historic city",
+    img: slideMarina,
+    alt: "Black luxury sedan parked on a waterfront promenade beside yachts in a European marina at sunset",
     title: (
       <>
-        Discover More of <span className="text-primary-bright">Europe</span> by Road
+        Luxury Rides to <span className="text-primary-bright">Europe’s Best</span> Destinations
       </>
     ),
-    text: "Explore transfer routes connecting major European airports and popular city destinations.",
+    text: "Explore transfer experiences connecting airports with beaches, marinas, scenic towns and iconic European locations.",
   },
 ];
 const INTERVAL = 6000;
