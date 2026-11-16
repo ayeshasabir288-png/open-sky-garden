@@ -32,7 +32,11 @@ export function validateBooking(v: BookingInput, today: Date = new Date()): Book
   if (!v.date) e.date = "Please choose a pickup date.";
   else if (v.date < todayIso) e.date = "Pickup date can't be in the past.";
   if (!v.time) e.time = "Please choose a pickup time.";
-  if (!Number.isInteger(v.passengers) || v.passengers < MIN_PASSENGERS || v.passengers > MAX_PASSENGERS)
+  if (
+    !Number.isInteger(v.passengers) ||
+    v.passengers < MIN_PASSENGERS ||
+    v.passengers > MAX_PASSENGERS
+  )
     e.passengers = `Choose between ${MIN_PASSENGERS} and ${MAX_PASSENGERS} passengers.`;
   if (v.returnTrip) {
     if (!v.returnDate) e.returnDate = "Please choose a return date.";
