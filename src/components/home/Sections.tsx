@@ -21,6 +21,7 @@ import {
   Building2,
 } from "lucide-react";
 import { Eyebrow, Reveal } from "./primitives";
+import { PHOTOS, type Photo } from "./photos";
 import paris from "@/assets/city-paris.jpg";
 import amsterdam from "@/assets/city-amsterdam.jpg";
 import barcelona from "@/assets/city-barcelona.jpg";
@@ -30,10 +31,6 @@ import economy from "@/assets/fleet-economy-sedan.jpg";
 import business from "@/assets/fleet-business-sedan.jpg";
 import van from "@/assets/fleet-business-van.jpg";
 import minibus from "@/assets/fleet-minibus.jpg";
-import germany from "@/assets/country-germany.jpg";
-import switzerland from "@/assets/country-switzerland.jpg";
-import austria from "@/assets/country-austria.jpg";
-import portugal from "@/assets/country-portugal.jpg";
 
 /* ---------- Intro ---------- */
 const CITIES = [
@@ -264,28 +261,50 @@ function BenefitItem({
 
 /* ---------- Airports ---------- */
 const AIRPORTS = [
-  { code: "FRA", name: "Frankfurt Airport", city: "Frankfurt am Main", country: "Germany" },
+  {
+    code: "FRA",
+    photo: PHOTOS["airport-fra"],
+    welcome: "Frankfurt Airport",
+    name: "Frankfurt Airport",
+    city: "Frankfurt am Main",
+    country: "Germany",
+  },
   {
     code: "AMS",
+    photo: PHOTOS["airport-ams"],
+    welcome: "Schiphol Airport",
     name: "Amsterdam Schiphol",
     city: "Haarlemmermeer, near Amsterdam",
     country: "Netherlands",
   },
   {
     code: "CDG",
+    photo: PHOTOS["airport-cdg"],
+    welcome: "Charles de Gaulle Airport",
     name: "Paris Charles de Gaulle",
     city: "Roissy-en-France, near Paris",
     country: "France",
   },
   {
     code: "BCN",
+    photo: PHOTOS["airport-bcn"],
+    welcome: "Barcelona–El Prat Airport",
     name: "Barcelona–El Prat",
     city: "El Prat de Llobregat, near Barcelona",
     country: "Spain",
   },
-  { code: "FCO", name: "Rome Fiumicino", city: "Fiumicino, near Rome", country: "Italy" },
+  {
+    code: "FCO",
+    photo: PHOTOS["airport-fco"],
+    welcome: "Fiumicino Airport",
+    name: "Rome Fiumicino",
+    city: "Fiumicino, near Rome",
+    country: "Italy",
+  },
   {
     code: "LHR",
+    photo: PHOTOS["airport-lhr"],
+    welcome: "Heathrow Airport",
     name: "London Heathrow",
     city: "Hillingdon, west London",
     country: "United Kingdom",
@@ -315,26 +334,31 @@ export function Airports() {
           {AIRPORTS.map((a, i) => (
             <li key={a.code} className="h-full">
               <Reveal delay={i * 70} className="h-full">
-                <article className="group relative flex h-full min-h-60 flex-col overflow-hidden rounded-3xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-float focus-within:border-primary/40 sm:p-7">
-                  <span
-                    aria-hidden
-                    className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  />
-                  <span
-                    aria-hidden
-                    className="absolute -right-10 -top-12 h-36 w-36 rounded-full bg-pale transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <span
-                    aria-hidden
-                    className="absolute -right-2 -top-5 font-display text-7xl font-extrabold tracking-tighter text-pale transition-colors duration-300 group-hover:text-accent"
-                  >
-                    {a.code}
-                  </span>
-                  <div className="relative flex h-full flex-col">
+                <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-float focus-within:border-primary/40">
+                  <figure className="relative aspect-[16/10] overflow-hidden bg-muted">
+                    <img
+                      src={a.photo.src}
+                      alt={a.photo.alt}
+                      width={800}
+                      height={500}
+                      loading="lazy"
+                      decoding="async"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-overlay/80 via-overlay/10 to-transparent" />
+                    <p className="absolute inset-x-4 bottom-3 font-display text-lg font-bold leading-tight text-navy-foreground sm:text-xl">
+                      <span className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-navy-foreground/85">
+                        Welcome to
+                      </span>
+                      {a.welcome}
+                    </p>
+                  </figure>
+                  <PhotoCredit photo={a.photo} className="px-6 pt-2 sm:px-7" />
+                  <div className="relative flex flex-1 flex-col p-6 pt-4 sm:p-7 sm:pt-4">
                     <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-pale px-3 py-1.5 text-[11px] font-bold tracking-widest text-primary ring-1 ring-primary/10">
                       <Plane className="h-3.5 w-3.5" /> {a.code}
                     </span>
-                    <h3 className="mt-6 max-w-64 text-xl font-bold leading-snug text-navy">
+                    <h3 className="mt-4 max-w-64 text-xl font-bold leading-snug text-navy">
                       {a.name}
                     </h3>
                     <p className="mt-2 text-[15px] leading-6 text-muted-foreground">
@@ -530,14 +554,14 @@ export function HowItWorks() {
 
 /* ---------- Destinations ---------- */
 const COUNTRIES = [
-  { name: "Germany", img: germany, alt: "Brandenburg Gate in Berlin" },
-  { name: "France", img: paris, alt: "Eiffel Tower seen from a Paris street" },
-  { name: "Spain", img: barcelona, alt: "Sagrada Família in Barcelona" },
-  { name: "Italy", img: rome, alt: "Colosseum in Rome" },
-  { name: "Netherlands", img: amsterdam, alt: "Amsterdam canal houses" },
-  { name: "Switzerland", img: switzerland, alt: "The Matterhorn above Zermatt" },
-  { name: "Austria", img: austria, alt: "Hallstatt village on the lake" },
-  { name: "Portugal", img: portugal, alt: "Yellow tram in Lisbon" },
+  { name: "Germany", photo: PHOTOS["dest-germany"] },
+  { name: "France", photo: PHOTOS["dest-france"] },
+  { name: "Spain", photo: PHOTOS["dest-spain"] },
+  { name: "Italy", photo: PHOTOS["dest-italy"] },
+  { name: "Netherlands", photo: PHOTOS["dest-netherlands"] },
+  { name: "Switzerland", photo: PHOTOS["dest-switzerland"] },
+  { name: "Austria", photo: PHOTOS["dest-austria"] },
+  { name: "Portugal", photo: PHOTOS["dest-portugal"] },
 ];
 
 export function Destinations() {
@@ -565,10 +589,10 @@ export function Destinations() {
               <Reveal delay={(i % 4) * 70} className="h-full">
                 <figure className="group relative aspect-[4/5] overflow-hidden rounded-3xl shadow-soft ring-1 ring-overlay/5">
                   <img
-                    src={c.img}
-                    alt={c.alt}
-                    width={816}
-                    height={816}
+                    src={c.photo.src}
+                    alt={c.photo.alt}
+                    width={640}
+                    height={800}
                     loading="lazy"
                     decoding="async"
                     className="absolute inset-0 h-full w-full object-cover contrast-[1.04] saturate-[1.03] transition-transform duration-500 ease-out group-hover:scale-[1.05]"
@@ -578,12 +602,30 @@ export function Destinations() {
                     {c.name}
                   </figcaption>
                 </figure>
+                <PhotoCredit photo={c.photo} className="mt-1.5 px-1" />
               </Reveal>
             </li>
           ))}
         </ul>
       </div>
     </section>
+  );
+}
+
+function PhotoCredit({ photo, className }: { photo: Photo; className?: string }) {
+  return (
+    <p className={`truncate text-[10px] leading-4 text-muted-foreground ${className ?? ""}`}>
+      Photo:{" "}
+      <a
+        href={photo.source}
+        target="_blank"
+        rel="noopener noreferrer license"
+        className="underline-offset-2 hover:text-primary hover:underline"
+      >
+        {photo.credit}
+      </a>{" "}
+      · {photo.license}
+    </p>
   );
 }
 

@@ -3,6 +3,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import slideAirport from "@/assets/hero-slide-sedan-airport.jpg";
 import slideRiver from "@/assets/hero-slide-river-town-aerial.jpg";
 import slideFamily from "@/assets/hero-slide-family-resort.jpg";
+import slideCoast from "@/assets/hero-slide-coastal-road.jpg";
+import slideParis from "@/assets/hero-slide-paris-landmark.jpg";
 import slideMarina from "@/assets/hero-slide-marina-sunset.jpg";
 import { BookingForm } from "./BookingForm";
 import { cn } from "@/lib/utils";
@@ -30,6 +32,16 @@ const SLIDES = [
     text: "Travel across beautiful European routes with comfortable private transfers designed for airports, cities and holiday destinations.",
   },
   {
+    img: slideCoast,
+    alt: "Black sedan on a Mediterranean cliff road above a beach, sailing boats and a colourful hillside village",
+    title: (
+      <>
+        Coastal Transfers to <span className="text-primary-bright">Beaches</span> and Seaside Towns
+      </>
+    ),
+    text: "Plan private transfers from European airports to coastal resorts, beaches and seaside towns.",
+  },
+  {
     img: slideFamily,
     alt: "Family arriving at a Mediterranean coastal resort while a chauffeur unloads suitcases from a black executive van",
     title: (
@@ -38,6 +50,16 @@ const SLIDES = [
       </>
     ),
     text: "Plan comfortable transfer journeys for families, couples and groups travelling to resorts, hotels and popular European destinations.",
+  },
+  {
+    img: slideParis,
+    alt: "Chauffeur holding a black sedan door for a couple with suitcases on a Paris riverside street, with the Eiffel Tower lit at dusk",
+    title: (
+      <>
+        Arrive at Europe’s <span className="text-primary-bright">Famous Landmarks</span>
+      </>
+    ),
+    text: "Plan airport and hotel transfers to iconic European cities such as Paris, Rome and Barcelona.",
   },
   {
     img: slideMarina,
