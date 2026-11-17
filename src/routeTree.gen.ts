@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AirportsIndexRouteImport } from './routes/airports.index'
+import { Route as AirportsSlugRouteImport } from './routes/airports.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AirportsIndexRoute = AirportsIndexRouteImport.update({
+  id: '/airports/',
+  path: '/airports/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AirportsSlugRoute = AirportsSlugRouteImport.update({
+  id: '/airports/$slug',
+  path: '/airports/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/airports/$slug': typeof AirportsSlugRoute
+  '/airports/': typeof AirportsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/airports/$slug': typeof AirportsSlugRoute
+  '/airports': typeof AirportsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/airports/$slug': typeof AirportsSlugRoute
+  '/airports/': typeof AirportsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/airports/$slug' | '/airports/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/airports/$slug' | '/airports'
+  id: '__root__' | '/' | '/airports/$slug' | '/airports/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AirportsSlugRoute: typeof AirportsSlugRoute
+  AirportsIndexRoute: typeof AirportsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/airports/': {
+      id: '/airports/'
+      path: '/airports'
+      fullPath: '/airports/'
+      preLoaderRoute: typeof AirportsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/airports/$slug': {
+      id: '/airports/$slug'
+      path: '/airports/$slug'
+      fullPath: '/airports/$slug'
+      preLoaderRoute: typeof AirportsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AirportsSlugRoute: AirportsSlugRoute,
+  AirportsIndexRoute: AirportsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

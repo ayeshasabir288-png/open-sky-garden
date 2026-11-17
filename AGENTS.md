@@ -1,4 +1,5 @@
 <!-- LOVABLE:BEGIN -->
+
 > [!IMPORTANT]
 > This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
 > published git history — force pushing, or rebasing/amending/squashing commits
@@ -27,7 +28,12 @@ use the editor.
   `LOVABLE_API_KEY`. When Lovable does not provide one, users can bring their
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
+
 <!-- LOVABLE:END -->
 
 ## Project rules
+
 - Homepage sections live in src/components/home; booking validation is in src/lib/booking.ts (tested) so a real booking API can replace the demo preview without touching layout.
+- Airport guides use separate typed, source-attributed records per airport in src/lib/airports and shared presentation in src/components/airports; a validated slug route serves only completed records to keep facts distinct and prevent placeholder pages.
+- Shared navigation accepts a homepage flag so existing in-page links remain unchanged at home and resolve back to the homepage from airport guides.
+- Keep the static sitemap limited to published URLs; add completed airport URLs only when publishing, because unpublished pages must not be listed.

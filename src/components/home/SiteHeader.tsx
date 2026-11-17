@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./primitives";
 import { cn } from "@/lib/utils";
+import { Link } from "@tanstack/react-router";
 
 export const NAV = [
   { label: "Home", href: "#top" },
-  { label: "Airports", href: "#airports" },
+  { label: "Airports", href: "/airports/" },
   { label: "Countries", href: "#countries" },
   { label: "Services", href: "#services" },
   { label: "Fleet", href: "#fleet" },
@@ -13,7 +14,7 @@ export const NAV = [
   { label: "Contact", href: "#contact" },
 ];
 
-export function SiteHeader() {
+export function SiteHeader({ homepage = true }: { homepage?: boolean }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -36,26 +37,35 @@ export function SiteHeader() {
           scrolled ? "shadow-float" : "shadow-soft",
         )}
       >
-        <a href="#top" aria-label="Europe Airport Taxi home">
+        <a href={homepage ? "#top" : "/#top"} aria-label="Europe Airport Taxi home">
           <Logo />
         </a>
         <nav aria-label="Main" className="hidden lg:block">
           <ul className="flex items-center gap-1">
             {NAV.map((n) => (
               <li key={n.href}>
-                <a
-                  href={n.href}
-                  className="rounded-full px-3 py-1.5 text-sm font-medium text-navy/80 transition-colors hover:bg-pale hover:text-primary focus-visible:outline-2 focus-visible:outline-ring"
-                >
-                  {n.label}
-                </a>
+                {n.label === "Airports" ? (
+                  <Link
+                    to="/airports/"
+                    className="rounded-full px-3 py-1.5 text-sm font-medium text-navy/80 transition-colors hover:bg-pale hover:text-primary focus-visible:outline-2 focus-visible:outline-ring"
+                  >
+                    {n.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={homepage ? n.href : `/${n.href}`}
+                    className="rounded-full px-3 py-1.5 text-sm font-medium text-navy/80 transition-colors hover:bg-pale hover:text-primary focus-visible:outline-2 focus-visible:outline-ring"
+                  >
+                    {n.label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>
         </nav>
         <div className="flex items-center gap-2">
           <a
-            href="#book"
+            href={homepage ? "#book" : "/#book"}
             className="hidden rounded-full bg-gradient-teal px-5 py-2 text-sm font-semibold text-primary-foreground shadow-soft transition-transform hover:-translate-y-0.5 sm:inline-flex"
           >
             Book Now
@@ -81,18 +91,28 @@ export function SiteHeader() {
           <ul className="grid gap-1">
             {NAV.map((n) => (
               <li key={n.href}>
-                <a
-                  href={n.href}
-                  onClick={() => setOpen(false)}
-                  className="block rounded-2xl px-4 py-3 font-medium text-navy hover:bg-pale hover:text-primary"
-                >
-                  {n.label}
-                </a>
+                {n.label === "Airports" ? (
+                  <Link
+                    to="/airports/"
+                    onClick={() => setOpen(false)}
+                    className="block rounded-2xl px-4 py-3 font-medium text-navy hover:bg-pale hover:text-primary"
+                  >
+                    {n.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={homepage ? n.href : `/${n.href}`}
+                    onClick={() => setOpen(false)}
+                    className="block rounded-2xl px-4 py-3 font-medium text-navy hover:bg-pale hover:text-primary"
+                  >
+                    {n.label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>
           <a
-            href="#book"
+            href={homepage ? "#book" : "/#book"}
             onClick={() => setOpen(false)}
             className="mt-2 block rounded-2xl bg-gradient-teal px-4 py-3.5 text-center font-semibold text-primary-foreground"
           >

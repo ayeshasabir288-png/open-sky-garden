@@ -4,6 +4,8 @@ import cta from "@/assets/cta-panorama.jpg";
 import { Eyebrow, Logo, Reveal } from "./primitives";
 import { NAV } from "./SiteHeader";
 import { cn } from "@/lib/utils";
+import { Link } from "@tanstack/react-router";
+import { AIRPORTS } from "@/lib/airports";
 
 export const FAQS = [
   {
@@ -129,7 +131,7 @@ export function FinalCta() {
   );
 }
 
-export function SiteFooter() {
+export function SiteFooter({ homepage = true }: { homepage?: boolean }) {
   return (
     <footer id="contact" className="bg-navy text-navy-foreground">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 lg:grid-cols-[1.3fr_0.8fr_1fr_1fr]">
@@ -147,9 +149,15 @@ export function SiteFooter() {
           <ul className="mt-4 grid gap-2 text-sm text-navy-foreground/75">
             {NAV.map((n) => (
               <li key={n.href}>
-                <a href={n.href} className="hover:text-primary-bright">
-                  {n.label}
-                </a>
+                {n.label === "Airports" ? (
+                  <Link to="/airports/" className="hover:text-primary-bright">
+                    {n.label}
+                  </Link>
+                ) : (
+                  <a href={homepage ? n.href : `/${n.href}`} className="hover:text-primary-bright">
+                    {n.label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>
@@ -159,18 +167,23 @@ export function SiteFooter() {
             Airports
           </h3>
           <ul className="mt-4 grid gap-2 text-sm text-navy-foreground/75">
-            {[
-              "Frankfurt (FRA)",
-              "Amsterdam Schiphol (AMS)",
-              "Paris CDG (CDG)",
-              "Barcelona (BCN)",
-              "Rome Fiumicino (FCO)",
-              "London Heathrow (LHR)",
-            ].map((a) => (
-              <li key={a}>{a}</li>
+            <li>
+              <Link to="/airports/" className="hover:text-primary-bright">
+                All airport guides
+              </Link>
+            </li>
+            {AIRPORTS.map((a) => (
+              <li key={a.code}>
+                <Link
+                  to="/airports/$slug/"
+                  params={{ slug: a.slug }}
+                  className="hover:text-primary-bright"
+                >
+                  {a.shortName} ({a.code}) transfers
+                </Link>
+              </li>
             ))}
           </ul>
-          <p className="mt-3 text-xs text-navy-foreground/45">Airport pages coming soon.</p>
         </div>
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-widest text-primary-bright">
