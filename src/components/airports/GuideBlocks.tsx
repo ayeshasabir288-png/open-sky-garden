@@ -67,8 +67,8 @@ export function SplitMedia({
   children,
   reverse,
 }: {
-  photo?: Photo;
-  caption?: string;
+  photo?: Photo | undefined;
+  caption?: string | undefined;
   children: ReactNode;
   reverse?: boolean;
 }) {
