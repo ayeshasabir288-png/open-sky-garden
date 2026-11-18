@@ -6,6 +6,7 @@ import { BookingForm } from "@/components/home/BookingForm";
 import type { Photo } from "@/components/home/photos";
 import { AIRPORTS, type Airport } from "@/lib/airports";
 import { previewNotice } from "@/lib/airports/types";
+import { Bullets, SplitMedia, galleryFor } from "./GuideBlocks";
 
 export function Section({
   id,
@@ -17,8 +18,9 @@ export function Section({
   children: ReactNode;
 }) {
   return (
-    <section id={id} className="border-b border-border py-10 md:py-14">
-      <h2 className="mb-6 font-display text-2xl font-extrabold leading-tight text-navy sm:text-3xl">
+    <section id={id} className="border-b border-border py-12 md:py-16">
+      <span aria-hidden className="mb-4 block h-1 w-10 rounded-full bg-primary-bright" />
+      <h2 className="mb-8 font-display text-2xl font-extrabold leading-tight text-navy sm:text-3xl">
         {title}
       </h2>
       {children}
@@ -164,47 +166,51 @@ export function TransportComparison({ airport: a }: { airport: Airport }) {
         GBP (£) as shown and were checked on {a.checked}; reconfirm before travel.
       </p>
       <div className="hidden lg:block">
-        <table className="w-full table-fixed text-left text-sm leading-6">
-          <caption className="sr-only">Transport options at {a.name}</caption>
-          <thead className="bg-pale">
-            <tr>
-              <th scope="col" className="w-[14%] p-3">
-                Transport option
-              </th>
-              {columns.map(([, label]) => (
-                <th scope="col" key={label} className="p-3 align-top">
-                  {label}
+        <div className="overflow-hidden rounded-xl border border-border bg-card">
+          <table className="w-full table-fixed text-left text-sm leading-6">
+            <caption className="sr-only">Transport options at {a.name}</caption>
+            <thead className="bg-pale text-xs uppercase tracking-wide text-navy">
+              <tr>
+                <th scope="col" className="w-[14%] p-3">
+                  Transport option
                 </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {a.comparison.map((row) => (
-              <tr key={row.option} className="border-b border-border">
-                <th scope="row" className="p-3 align-top font-bold text-navy">
-                  {row.option}
-                </th>
-                {columns.map(([key]) => (
-                  <td key={key} className="break-words p-3 align-top">
-                    {row[key]}
-                    {key === "fare" && (
-                      <div className="mt-2">
-                        <OfficialLink href={row.url}>
-                          {row.url === "#book" ? "Enquiry preview" : "Official source"}
-                        </OfficialLink>
-                      </div>
-                    )}
-                  </td>
+                {columns.map(([, label]) => (
+                  <th scope="col" key={label} className="p-3 align-top">
+                    {label}
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {a.comparison.map((row) => (
+                <tr key={row.option} className="border-t border-border even:bg-background">
+                  <th scope="row" className="p-3 align-top font-bold text-navy">
+                    {row.option}
+                  </th>
+                  {columns.map(([key]) => (
+                    <td key={key} className="break-words p-3 align-top">
+                      {row[key]}
+                      {key === "fare" && (
+                        <div className="mt-2">
+                          <OfficialLink href={row.url}>
+                            {row.url === "#book" ? "Enquiry preview" : "Official source"}
+                          </OfficialLink>
+                        </div>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       <div className="grid gap-4 lg:hidden">
         {a.comparison.map((row) => (
-          <article key={row.option} className="rounded-lg border border-border bg-card p-5">
-            <h3 className="text-lg font-bold text-navy">{row.option}</h3>
+          <article key={row.option} className="rounded-xl border border-border bg-card p-5">
+            <h3 className="border-b border-border pb-3 text-lg font-bold text-navy">
+              {row.option}
+            </h3>
             <dl className="mt-4 grid gap-3 sm:grid-cols-2">
               {columns.map(([key, label]) => (
                 <div key={key}>
@@ -225,6 +231,7 @@ export function TransportComparison({ airport: a }: { airport: Airport }) {
   );
 }
 export function TrainGuide({ airport: a }: { airport: Airport }) {
+  const rail = galleryFor(a)[1];
   return (
     <Section id="trains" title="Train and metro services">
       <h3 className="flex items-center gap-3 text-xl font-bold text-navy">
@@ -234,13 +241,13 @@ export function TrainGuide({ airport: a }: { airport: Airport }) {
       <p className="mt-4 rounded-lg bg-pale p-4 text-sm font-semibold leading-6">
         {a.train.station}
       </p>
-      <div className="mt-5 space-y-4 text-[15px] leading-7">
-        {a.train.paragraphs.map((p) => (
-          <p key={p}>{p}</p>
-        ))}
-      </div>
-      <div className="mt-5">
-        <OfficialLink href={a.train.url}>Official rail guidance</OfficialLink>
+      <div className="mt-6">
+        <SplitMedia photo={rail} caption={rail?.caption} reverse>
+          <Bullets items={a.train.paragraphs} />
+          <div className="mt-6">
+            <OfficialLink href={a.train.url}>Official rail guidance</OfficialLink>
+          </div>
+        </SplitMedia>
       </div>
     </Section>
   );
@@ -252,10 +259,8 @@ export function TaxiGuide({ airport: a }: { airport: Airport }) {
         <CarFront className="h-5 w-5 text-primary" />
         Use official, licensed transport
       </h3>
-      <div className="mt-4 space-y-4 text-[15px] leading-7">
-        {a.taxi.paragraphs.map((p) => (
-          <p key={p}>{p}</p>
-        ))}
+      <div className="mt-6">
+        <Bullets items={a.taxi.paragraphs} />
       </div>
       <div className="mt-5">
         <OfficialLink href={a.taxi.url}>Official taxi guidance</OfficialLink>
@@ -268,8 +273,14 @@ export function PopularRoutes({ airport: a }: { airport: Airport }) {
     <Section id="routes" title={`Popular routes from ${a.shortName}`}>
       <div className="grid gap-4 sm:grid-cols-2">
         {a.routes.map((r) => (
-          <article key={r.name} className="rounded-lg border border-border bg-card p-5">
-            <h3 className="font-bold text-navy">{r.name}</h3>
+          <article
+            key={r.name}
+            className="rounded-xl border border-border bg-card p-5 transition-shadow hover:shadow-md"
+          >
+            <h3 className="flex items-center gap-2 font-bold text-navy">
+              <MapPin className="h-4 w-4 shrink-0 text-primary" />
+              {r.name}
+            </h3>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">{r.text}</p>
           </article>
         ))}

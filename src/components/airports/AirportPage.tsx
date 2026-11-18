@@ -4,7 +4,6 @@ import { Fleet } from "@/components/home/Sections";
 import type { Airport } from "@/lib/airports";
 import {
   AirportHero,
-  AirportFacts,
   TransportComparison,
   TrainGuide,
   TaxiGuide,
@@ -14,12 +13,25 @@ import {
   Section,
   OfficialLink,
 } from "./AirportParts";
+import {
+  Bullets,
+  Callout,
+  EnquiryCta,
+  Gallery,
+  QuickFacts,
+  SplitMedia,
+  Steps,
+  galleryFor,
+} from "./GuideBlocks";
 const contents = [
-  ["facts", "At a glance"],
+  ["facts", "Quick facts"],
+  ["terminals", "Terminals"],
+  ["pickup", "Pickup"],
   ["compare", "Compare transport"],
   ["trains", "Trains"],
   ["taxis", "Taxis"],
   ["routes", "Routes"],
+  ["gallery", "Photos"],
   ["faq", "Questions"],
 ];
 export function AirportPage({ airport: a }: { airport: Airport }) {
@@ -41,31 +53,45 @@ export function AirportPage({ airport: a }: { airport: Airport }) {
           </nav>
           <div className="grid gap-10 lg:grid-cols-[1fr_240px]">
             <div className="min-w-0">
-              <AirportFacts airport={a} />
-              <Section title="Airport terminals and arrivals">
-                <div className="space-y-4 text-[15px] leading-7">
-                  {a.arrivals.map((p) => (
-                    <p key={p}>{p}</p>
-                  ))}
+              <QuickFacts airport={a} />
+              <Section id="terminals" title="Airport terminals and arrivals">
+                <SplitMedia photo={galleryFor(a)[0]} caption={galleryFor(a)[0]?.caption}>
+                  <Steps items={a.arrivals} />
+                </SplitMedia>
+              </Section>
+              <Section id="pickup" title="Airport taxi and private transfer information">
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="rounded-xl border border-border bg-card p-5">
+                    <h3 className="font-display font-bold text-navy">Local airport taxi</h3>
+                    <p className="mt-2 text-sm leading-6">
+                      Taken from an authorised rank under local taxi rules.
+                    </p>
+                  </div>
+                  <div className="rounded-xl border border-border bg-card p-5">
+                    <h3 className="font-display font-bold text-navy">Private transfer</h3>
+                    <p className="mt-2 text-sm leading-6">
+                      Arranged in advance with a provider, with the destination, vehicle
+                      requirements and pickup agreed before travel.
+                    </p>
+                  </div>
+                </div>
+                <p className="mt-5 text-[15px] leading-7">
+                  Neither is universally better: rail may be faster for a station-connected address,
+                  and a road journey may avoid changes with luggage.
+                </p>
+                <div className="mt-5">
+                  <Callout title="Booking is not live">
+                    Europe Airport Taxi’s booking engine is not live. This guide is travel
+                    information, not evidence of airport coverage or vehicle availability. The form
+                    only shows a demo summary; it sends nothing and confirms no driver, fare,
+                    waiting period or meeting point.
+                  </Callout>
                 </div>
               </Section>
-              <Section title="Airport taxi and private transfer information">
-                <p className="text-[15px] leading-7">
-                  A local airport taxi is taken from an authorised rank under local taxi rules. A
-                  private transfer is arranged in advance with a provider, with the destination,
-                  vehicle requirements and pickup agreed before travel. Neither is universally
-                  better: rail may be faster for a station-connected address, and a road journey may
-                  avoid changes with luggage.
-                </p>
-                <p className="mt-4 text-[15px] leading-7">
-                  Europe Airport Taxi’s booking engine is not live. This guide is travel
-                  information, not evidence of airport coverage or vehicle availability. The form
-                  only shows a demo summary; it sends nothing and confirms no driver, fare, waiting
-                  period or meeting point.
-                </p>
-              </Section>
               <Section title={`${a.shortName} Airport to ${a.city} city centre`}>
-                <p className="text-[15px] leading-7">{a.cityGuide}</p>
+                <Callout title={`Getting into ${a.city}`}>
+                  <p className="text-[15px] leading-7">{a.cityGuide}</p>
+                </Callout>
               </Section>
             </div>
             <aside className="hidden pt-10 lg:block">
@@ -88,9 +114,9 @@ export function AirportPage({ airport: a }: { airport: Airport }) {
             <TaxiGuide airport={a} />
             <PopularRoutes airport={a} />
             <Section title="Which transport option should you choose?">
-              <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
+              <div className="grid gap-4 sm:grid-cols-2">
                 {a.scenarios.map((s) => (
-                  <div key={s.title}>
+                  <div key={s.title} className="rounded-xl border border-border bg-card p-5">
                     <h3 className="font-bold text-navy">{s.title}</h3>
                     <p className="mt-2 text-[15px] leading-7 text-muted-foreground">{s.text}</p>
                   </div>
@@ -98,18 +124,33 @@ export function AirportPage({ airport: a }: { airport: Airport }) {
               </div>
             </Section>
             <Section title="Arriving at the airport">
-              <p className="text-[15px] leading-7">
-                Keep your flight number, arrival terminal, landing date and time, final address,
-                passenger count and luggage details ready. Complete baggage collection and arrival
-                formalities before leaving for ground transport. Use official airport screens, signs
-                and staff for current directions.
-              </p>
-              <p className="mt-4 text-[15px] leading-7">
-                For a prearranged pickup, agree the exact location with the provider in advance and
-                recheck it if your terminal changes. Landing time is not the time you will be ready
-                outside. Discuss mobility needs, child seats and bulky items before arranging a
-                vehicle; the demo form does not collect or send all these details.
-              </p>
+              <SplitMedia photo={a.photo} caption={`Outside ${a.shortName} Airport`}>
+                <h3 className="font-display font-bold text-navy">Keep these details ready</h3>
+                <ul className="mt-3 grid grid-cols-1 gap-2 text-sm leading-6 sm:grid-cols-2">
+                  {[
+                    "Flight number",
+                    "Arrival terminal",
+                    "Landing date and time",
+                    "Final address",
+                    "Passenger count",
+                    "Luggage details",
+                  ].map((d) => (
+                    <li key={d} className="rounded-lg bg-pale px-3 py-2 font-semibold text-navy">
+                      {d}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-5 text-[15px] leading-7">
+                  Complete baggage collection and arrival formalities before leaving for ground
+                  transport. Use official airport screens, signs and staff for current directions.
+                </p>
+                <p className="mt-4 text-[15px] leading-7">
+                  For a prearranged pickup, agree the exact location with the provider in advance
+                  and recheck it if your terminal changes. Landing time is not the time you will be
+                  ready outside. Discuss mobility needs, child seats and bulky items before
+                  arranging a vehicle; the demo form does not collect or send all these details.
+                </p>
+              </SplitMedia>
             </Section>
           </div>
         </div>
@@ -126,12 +167,9 @@ export function AirportPage({ airport: a }: { airport: Airport }) {
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-4xl">
             <Section title="Helpful airport travel tips">
-              <ul className="list-disc space-y-3 pl-5 text-[15px] leading-7">
-                {a.tips.map((t) => (
-                  <li key={t}>{t}</li>
-                ))}
-              </ul>
+              <Bullets items={a.tips} />
             </Section>
+            <Gallery airport={a} />
             <AirportFAQ faqs={a.faqs} />
             <Section title="Sources and verification">
               <p className="mb-5 text-sm leading-6 text-muted-foreground">
@@ -151,6 +189,7 @@ export function AirportPage({ airport: a }: { airport: Airport }) {
             </Section>
           </div>
         </div>
+        <EnquiryCta airport={a} />
         <RelatedAirports airport={a} />
       </main>
       <SiteFooter homepage={false} />
