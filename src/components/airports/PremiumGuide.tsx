@@ -77,7 +77,7 @@ function Figure({
   ratio = "aspect-[4/3]",
 }: {
   photo: Photo;
-  caption?: string;
+  caption?: string | undefined;
   ratio?: string;
 }) {
   return (
