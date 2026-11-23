@@ -13,6 +13,7 @@ import {
   Section,
   OfficialLink,
 } from "./AirportParts";
+import { PremiumAirportPage } from "./PremiumAirportPage";
 import {
   Bullets,
   Callout,
@@ -35,6 +36,8 @@ const contents = [
   ["faq", "Questions"],
 ];
 export function AirportPage({ airport: a }: { airport: Airport }) {
+  // Frankfurt previews the redesigned layout for review before it is rolled out to other guides.
+  if (a.code === "FRA") return <PremiumAirportPage airport={a} />;
   return (
     <>
       <SiteHeader homepage={false} />

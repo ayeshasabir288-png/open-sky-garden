@@ -18,3 +18,7 @@
 - [x] Connect shared navigation, attribution, metadata and sitemap without changing homepage content.
 - [x] Verify new pages at 1440, 768 and 390 pixels, booking previews and existing tests.
 - [x] Report sources, changed files and remaining unverified details; do not deploy.
+
+## Premium airport guide redesign
+- [x] Redesign Frankfurt guide (hero, compact facts, alternating sections, transport cards, destination cards) for review.
+- [ ] Apply approved design to the other five guides and the directory — waiting on your review of Frankfurt.

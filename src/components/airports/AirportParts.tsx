@@ -157,7 +157,13 @@ const columns = [
   ["advantage", "Main advantage"],
   ["limitation", "Main limitation"],
 ] as const;
-export function TransportComparison({ airport: a }: { airport: Airport }) {
+export function TransportComparison({
+  airport: a,
+  intro,
+}: {
+  airport: Airport;
+  intro?: ReactNode;
+}) {
   return (
     <Section id="compare" title="Private Airport Transfer vs Local Taxi vs Train vs Bus">
       <p className="mb-6 text-[15px] leading-7 text-muted-foreground">
@@ -165,6 +171,7 @@ export function TransportComparison({ airport: a }: { airport: Airport }) {
         Traffic, terminal and final destination change the total. Published fares are in EUR (€) or
         GBP (£) as shown and were checked on {a.checked}; reconfirm before travel.
       </p>
+      {intro}
       <div className="hidden lg:block">
         <div className="overflow-hidden rounded-xl border border-border bg-card">
           <table className="w-full table-fixed text-left text-sm leading-6">
