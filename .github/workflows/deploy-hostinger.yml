@@ -1,0 +1,294 @@
+name: Deploy to Hostinger temporary site
+
+# Manual deployments only. Do not add a push trigger until separately approved.
+# Rollback: if a deployment fails or the site is unhealthy, use hPanel → Websites →
+# Manage → Deployments → select the last Completed deployment → Redeploy →
+# Deployment settings → Use previous files → Save and redeploy. Verify the
+# X-Robots-Tag: noindex, nofollow header after rollback. Do not change DNS or
+# touch the production WordPress site.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hostinger-temporary-deploy
+  cancel-in-progress: false
+
+env:
+  HOSTINGER_API_BASE: https://developers.hostinger.com
+  HOSTINGER_USERNAME: u384843201
+  HOSTINGER_DOMAIN: mannered-mediumblue-dolphin-07.hostingersite.com
+  ARCHIVE_PATH: open-sky-garden-main.zip
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      HOSTINGER_API_TOKEN: ${{ secrets.HOSTINGER_API_TOKEN }}
+    steps:
+      - name: Check out private repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Create clean source archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build-artifact
+          zip -q -r "build-artifact/${ARCHIVE_PATH}" . \
+            -x 'node_modules/*' \
+            '.output/*' \
+            '.git/*' \
+            '.github/workflows/*' \
+            'build-artifact/*' \
+            '*.log' \
+            '*.tmp' \
+            '*.temp' \
+            '*.bak' \
+            '.env' \
+            '.env.*' \
+            '*.pem' \
+            '*.key' \
+            '*.pfx' \
+            '*.p12' \
+            '.DS_Store' \
+            'Thumbs.db'
+          test -s "build-artifact/${ARCHIVE_PATH}"
+
+      - name: Generate Hostinger upload credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "${HOSTINGER_API_TOKEN:-}" ]; then
+            echo "Missing required secret HOSTINGER_API_TOKEN" >&2
+            exit 1
+          fi
+
+          response="$(mktemp)"
+          trap 'rm -f "$response"' EXIT
+
+          curl --silent --show-error --fail \
+            --request POST \
+            --header "Authorization: Bearer ${HOSTINGER_API_TOKEN}" \
+            --header "Content-Type: application/json" \
+            --data "$(jq -nc --arg username "$HOSTINGER_USERNAME" --arg domain "$HOSTINGER_DOMAIN" '{username: $username, domain: $domain}')" \
+            --output "$response" \
+            "${HOSTINGER_API_BASE}/api/hosting/v1/files/upload-urls"
+
+          upload_url="$(jq -r '.url // empty' "$response")"
+          auth_key="$(jq -r '.auth_key // empty' "$response")"
+          rest_auth_key="$(jq -r '.rest_auth_key // empty' "$response")"
+
+          if [ -z "$upload_url" ] || [ -z "$auth_key" ] || [ -z "$rest_auth_key" ]; then
+            echo "Hostinger upload URL response was incomplete" >&2
+            exit 1
+          fi
+
+          echo "::add-mask::${auth_key}"
+          echo "::add-mask::${rest_auth_key}"
+          echo "UPLOAD_URL=${upload_url%/}" >> "$GITHUB_ENV"
+          echo "UPLOAD_AUTH_KEY=${auth_key}" >> "$GITHUB_ENV"
+          echo "UPLOAD_REST_AUTH_KEY=${rest_auth_key}" >> "$GITHUB_ENV"
+
+      - name: Upload source archive to Hostinger
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          upload_file() {
+            local file="$1"
+            local remote_name="$2"
+            local size
+            size="$(wc -c < "$file" | tr -d ' ')"
+
+            curl --silent --show-error --fail \
+              --request POST \
+              --header "Tus-Resumable: 1.0.0" \
+              --header "Upload-Length: ${size}" \
+              --header "Upload-Offset: 0" \
+              --header "X-Auth: ${UPLOAD_AUTH_KEY}" \
+              --header "X-Auth-Rest: ${UPLOAD_REST_AUTH_KEY}" \
+              --output /dev/null \
+              "${UPLOAD_URL}/${remote_name}?override=true"
+
+            curl --silent --show-error --fail \
+              --request PATCH \
+              --header "Tus-Resumable: 1.0.0" \
+              --header "Content-Type: application/offset+octet-stream" \
+              --header "Upload-Offset: 0" \
+              --header "X-Auth: ${UPLOAD_AUTH_KEY}" \
+              --header "X-Auth-Rest: ${UPLOAD_REST_AUTH_KEY}" \
+              --data-binary "@${file}" \
+              --output /dev/null \
+              "${UPLOAD_URL}/${remote_name}?override=true"
+
+            echo "Uploaded ${remote_name} (${size} bytes)"
+          }
+
+          upload_file "build-artifact/${ARCHIVE_PATH}" "${ARCHIVE_PATH}"
+
+      - name: Start Hostinger Node.js build
+        shell: bash
+        run: |
+          set -euo pipefail
+          response="$(mktemp)"
+          trap 'rm -f "$response"' EXIT
+
+          deploy_message="Deploy ${GITHUB_SHA::7} from ${GITHUB_REF_NAME}"
+
+          curl --silent --show-error --fail \
+            --request POST \
+            --header "Authorization: Bearer ${HOSTINGER_API_TOKEN}" \
+            --header "Content-Type: application/json" \
+            --data "$(jq -nc \
+              --arg archive "$ARCHIVE_PATH" \
+              --arg message "$deploy_message" \
+              '{node_version: 22, app_type: "nitro", root_directory: ".", output_directory: ".output", build_script: "build", entry_file: "server/index.mjs", package_manager: "npm", source_type: "archive", source_options: {archive_path: $archive, message: $message}}')" \
+            --output "$response" \
+            "${HOSTINGER_API_BASE}/api/hosting/v1/accounts/${HOSTINGER_USERNAME}/websites/${HOSTINGER_DOMAIN}/nodejs/builds"
+
+          build_uuid="$(jq -r '.uuid // empty' "$response")"
+          if [ -z "$build_uuid" ]; then
+            echo "Hostinger build response did not include a UUID" >&2
+            exit 1
+          fi
+
+          echo "BUILD_UUID=${build_uuid}" >> "$GITHUB_ENV"
+          echo "Started Hostinger build ${build_uuid}"
+
+      - name: Wait for Hostinger build
+        shell: bash
+        run: |
+          set -euo pipefail
+          status_file="$(mktemp)"
+          log_file="$(mktemp)"
+          trap 'rm -f "$status_file" "$log_file"' EXIT
+          build_state="unknown"
+
+          for attempt in $(seq 1 40); do
+            curl --silent --show-error --fail \
+              --header "Authorization: Bearer ${HOSTINGER_API_TOKEN}" \
+              --output "$status_file" \
+              "${HOSTINGER_API_BASE}/api/hosting/v1/accounts/${HOSTINGER_USERNAME}/websites/${HOSTINGER_DOMAIN}/nodejs/builds/${BUILD_UUID}"
+
+            build_state="$(jq -r '.state // "unknown"' "$status_file")"
+            echo "Build ${BUILD_UUID}: ${build_state} (attempt ${attempt})"
+
+            if [ "$build_state" = "completed" ]; then
+              break
+            fi
+
+            if [ "$build_state" = "failed" ]; then
+              curl --silent --show-error --fail \
+                --header "Authorization: Bearer ${HOSTINGER_API_TOKEN}" \
+                --output "$log_file" \
+                "${HOSTINGER_API_BASE}/api/hosting/v1/accounts/${HOSTINGER_USERNAME}/websites/${HOSTINGER_DOMAIN}/nodejs/builds/${BUILD_UUID}/logs" || true
+              jq -r '.logs // .message // .' "$log_file" 2>/dev/null | tail -n 80 || true
+              echo "Hostinger build ${BUILD_UUID} failed" >&2
+              exit 1
+            fi
+
+            sleep 15
+          done
+
+          if [ "$build_state" != "completed" ]; then
+            echo "Hostinger build ${BUILD_UUID} did not complete in time (last state: ${build_state})" >&2
+            exit 1
+          fi
+
+      - name: Restore temporary-site noindex headers
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp deployment/hostinger-temporary/.htaccess.example "$RUNNER_TEMP/.htaccess"
+
+          size="$(wc -c < "$RUNNER_TEMP/.htaccess" | tr -d ' ')"
+
+          curl --silent --show-error --fail \
+            --request POST \
+            --header "Tus-Resumable: 1.0.0" \
+            --header "Upload-Length: ${size}" \
+            --header "Upload-Offset: 0" \
+            --header "X-Auth: ${UPLOAD_AUTH_KEY}" \
+            --header "X-Auth-Rest: ${UPLOAD_REST_AUTH_KEY}" \
+            --output /dev/null \
+            "${UPLOAD_URL}/.htaccess?override=true"
+
+          curl --silent --show-error --fail \
+            --request PATCH \
+            --header "Tus-Resumable: 1.0.0" \
+            --header "Content-Type: application/offset+octet-stream" \
+            --header "Upload-Offset: 0" \
+            --header "X-Auth: ${UPLOAD_AUTH_KEY}" \
+            --header "X-Auth-Rest: ${UPLOAD_REST_AUTH_KEY}" \
+            --data-binary "@${RUNNER_TEMP}/.htaccess" \
+            --output /dev/null \
+            "${UPLOAD_URL}/.htaccess?override=true"
+
+          echo "Restored temporary-site .htaccess with noindex header"
+
+      - name: Verify noindex protection
+        shell: bash
+        run: |
+          set -euo pipefail
+          header_file="$(mktemp)"
+          trap 'rm -f "$header_file"' EXIT
+          found="false"
+
+          for attempt in 1 2 3; do
+            : > "$header_file"
+            curl --silent --show-error --fail --location \
+              --max-time 30 \
+              --header "Cache-Control: no-cache" \
+              --dump-header "$header_file" \
+              --output /dev/null \
+              "https://${HOSTINGER_DOMAIN}/"
+
+            if grep -qi '^x-robots-tag:[[:space:]]*noindex,[[:space:]]*nofollow' "$header_file"; then
+              found="true"
+              break
+            fi
+
+            echo "Noindex header not visible yet (attempt ${attempt})"
+            sleep 10
+          done
+
+          if [ "$found" != "true" ]; then
+            echo "X-Robots-Tag noindex protection was not visible after deployment" >&2
+            exit 1
+          fi
+
+          echo "Verified X-Robots-Tag: noindex, nofollow on ${HOSTINGER_DOMAIN}"
+
+      - name: Deployment summary
+        shell: bash
+        run: |
+          {
+            echo "### Hostinger deployment"
+            echo "- Commit: ${GITHUB_SHA}"
+            echo "- Build UUID: ${BUILD_UUID}"
+            echo "- Domain: ${HOSTINGER_DOMAIN}"
+            echo "- Noindex protection: verified"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Document rollback on failure
+        if: failure()
+        shell: bash
+        run: |
+          cat <<'EOF'
+          Deployment failed or verification did not pass.
+
+          Rollback procedure:
+          1. Open hPanel, then Websites, then Manage for the temporary site.
+          2. Open Deployments and select the most recent Completed deployment.
+          3. Choose Redeploy, then Deployment settings.
+          4. Select Use previous files and choose Save and redeploy.
+          5. Confirm the site loads and X-Robots-Tag: noindex, nofollow is present.
+
+          Do not change DNS and do not touch the production WordPress site.
+          EOF
