@@ -1,6 +1,6 @@
 name: Deploy to Hostinger temporary site
 
-# Manual deployments only. Do not add a push trigger until separately approved.
+# Deploy on pushes to main and on manual Run workflow requests.
 # Rollback: if a deployment fails or the site is unhealthy, use hPanel → Websites →
 # Manage → Deployments → select the last Completed deployment → Redeploy →
 # Deployment settings → Use previous files → Save and redeploy. Verify the
@@ -8,6 +8,9 @@ name: Deploy to Hostinger temporary site
 # touch the production WordPress site.
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
