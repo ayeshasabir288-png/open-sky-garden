@@ -20,6 +20,7 @@ import { SiteFooter } from "@/components/home/Closing";
 import { amsterdam, barcelona, frankfurt, heathrow, paris, rome } from "@/lib/airports";
 import type { Airport } from "@/lib/airports/types";
 import journeyIllustration from "@/assets/countries/countries-europe-journey-illustration.webp";
+import twilightAirportTransfer from "@/assets/countries/twilight_luxury_airport_transfer.png";
 
 type CountryGuide = {
   airport: Airport;
@@ -65,8 +66,6 @@ const COUNTRY_GUIDES: CountryGuide[] = [
       "Compare Heathrow terminal guidance with rail, Underground, bus, coach and black cab options for your London journey.",
   },
 ];
-
-const HERO_PHOTO = PHOTOS["dest-germany"];
 
 const TRANSPORT_OPTIONS = [
   {
@@ -142,15 +141,15 @@ export function CountriesDirectory() {
       <main id="main-content" tabIndex={-1}>
         <section className="relative isolate min-h-[34rem] overflow-hidden bg-overlay text-navy-foreground md:min-h-[38rem]">
           <img
-            src={HERO_PHOTO.src}
-            alt={HERO_PHOTO.alt}
+            src={twilightAirportTransfer}
+            alt="AI-generated illustration of a luxury airport transfer at twilight; this is not a real airport photograph."
             width={1600}
             height={900}
             fetchPriority="high"
             decoding="async"
-            className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
+            className="absolute inset-0 -z-20 h-full w-full object-cover object-[52%_center] sm:object-[58%_center] md:object-[62%_center]"
           />
-          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-overlay/90 via-overlay/65 to-overlay/25" />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#062b2f]/90 via-[#07383c]/65 to-[#062b2f]/30" />
           <div className="mx-auto flex min-h-[34rem] max-w-6xl flex-col justify-end px-4 pt-32 pb-12 sm:px-6 md:min-h-[38rem] md:pb-16">
             <nav
               aria-label="Breadcrumb"
@@ -184,7 +183,9 @@ export function CountriesDirectory() {
           </div>
         </section>
         <div className="mx-auto max-w-6xl px-4 pt-3 sm:px-6">
-          <PhotoCredit photo={HERO_PHOTO} />
+          <p className="text-xs leading-5 text-muted-foreground">
+            AI-generated illustrative image; not a real airport photograph.
+          </p>
         </div>
 
         <section
