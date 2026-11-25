@@ -13,7 +13,6 @@ import {
   TrainFront,
   X,
 } from "lucide-react";
-import { PhotoCredit } from "@/components/airports/AirportParts";
 import { PHOTOS, type Photo } from "@/components/home/photos";
 import { SiteHeader } from "@/components/home/SiteHeader";
 import { SiteFooter } from "@/components/home/Closing";
@@ -140,30 +139,25 @@ export function CountriesDirectory() {
       <SiteHeader homepage={false} />
       <main id="main-content" tabIndex={-1}>
         <section className="relative isolate min-h-[34rem] overflow-hidden bg-overlay text-navy-foreground md:min-h-[38rem]">
-          <img
-            src={twilightAirportTransfer}
-            alt="AI-generated illustration of a luxury airport transfer at twilight; this is not a real airport photograph."
-            width={1600}
-            height={900}
-            fetchPriority="high"
-            decoding="async"
-            className="absolute inset-0 -z-20 h-full w-full object-cover object-[52%_center] sm:object-[58%_center] md:object-[62%_center]"
-          />
-          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#062b2f]/90 via-[#07383c]/65 to-[#062b2f]/30" />
-          <div className="mx-auto flex min-h-[34rem] max-w-6xl flex-col justify-end px-4 pt-32 pb-12 sm:px-6 md:min-h-[38rem] md:pb-16">
-            <nav
-              aria-label="Breadcrumb"
-              className="mb-auto flex items-center gap-2 pt-4 text-sm text-navy-foreground/85"
-            >
-              <Link
-                to="/"
-                className="rounded-sm underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-              >
-                Home
-              </Link>
-              <span aria-hidden="true">/</span>
-              <span aria-current="page">Countries</span>
-            </nav>
+          <figure className="absolute inset-0 -z-20 m-0">
+            <img
+              src={twilightAirportTransfer}
+              alt="AI-generated illustration of a luxury airport transfer at twilight; this is not a real airport photograph."
+              width={1600}
+              height={900}
+              fetchPriority="high"
+              decoding="async"
+              className="absolute inset-0 z-0 h-full w-full object-cover object-[52%_center] sm:object-[58%_center] md:object-[62%_center]"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 z-10 bg-gradient-to-r from-[#062b2f]/90 via-[#07383c]/65 to-[#062b2f]/30"
+            />
+            <figcaption className="absolute right-4 bottom-3 z-20 text-right text-[11px] leading-4 text-navy-foreground/80 drop-shadow-sm sm:right-6">
+              AI-generated travel illustration.
+            </figcaption>
+          </figure>
+          <div className="mx-auto flex min-h-[34rem] max-w-6xl flex-col justify-center px-4 pt-24 pb-12 sm:px-6 md:min-h-[38rem] md:pb-16">
             <p className="mb-4 flex items-center gap-2 text-sm font-bold uppercase tracking-[0.16em] text-primary-bright">
               <Plane aria-hidden="true" className="h-4 w-4" /> Plan your arrival across Europe
             </p>
@@ -171,8 +165,8 @@ export function CountriesDirectory() {
               European Airport Transfer Guides by Country
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-navy-foreground/90 sm:text-lg sm:leading-8">
-              Explore airport arrival information, compare onward transport options and follow
-              official links for six European airport guides.
+              Find your arrival airport, explore onward transport options and plan the next part of
+              your journey with practical guides to six major European airports.
             </p>
             <a
               href="#explore-countries"
@@ -182,12 +176,6 @@ export function CountriesDirectory() {
             </a>
           </div>
         </section>
-        <div className="mx-auto max-w-6xl px-4 pt-3 sm:px-6">
-          <p className="text-xs leading-5 text-muted-foreground">
-            AI-generated illustrative image; not a real airport photograph.
-          </p>
-        </div>
-
         <section
           id="explore-countries"
           aria-labelledby="countries-title"
@@ -203,11 +191,12 @@ export function CountriesDirectory() {
                   id="countries-title"
                   className="mt-3 max-w-2xl font-display text-3xl font-extrabold leading-tight text-navy sm:text-4xl"
                 >
-                  Start with the country you’re arriving in
+                  Explore Airport Transfers by Country
                 </h2>
                 <p className="mt-3 max-w-2xl leading-7 text-muted-foreground">
-                  Each guide focuses on one airport and links to its official arrival and transport
-                  information. Search by country, airport or IATA code.
+                  Explore airport arrival guides for Germany, the Netherlands, France, Spain, Italy
+                  and the United Kingdom. Find practical information about airport terminals, pickup
+                  locations, public transport and onward journeys.
                 </p>
               </div>
               <div>
@@ -272,14 +261,26 @@ export function CountriesDirectory() {
                           decoding="async"
                           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.035] motion-reduce:transform-none motion-reduce:transition-none"
                         />
-                        <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-gradient-to-t from-overlay/90 to-transparent px-5 pt-12 pb-4 text-sm font-semibold text-navy-foreground">
-                          <span>{airport.country}</span>
-                          <span className="rounded-full border border-navy-foreground/40 bg-overlay/35 px-3 py-1 text-xs tracking-wide">
-                            {airport.code}
-                          </span>
+                        <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-overlay/90 to-transparent px-5 pt-12 pb-4 text-navy-foreground">
+                          <div className="flex items-center justify-between gap-3 text-sm font-semibold">
+                            <span>{airport.country}</span>
+                            <span className="rounded-full border border-navy-foreground/40 bg-overlay/35 px-3 py-1 text-xs tracking-wide">
+                              {airport.code}
+                            </span>
+                          </div>
+                          <p className="mt-1 text-[10px] leading-4 text-navy-foreground/85">
+                            Photo:{" "}
+                            <a
+                              className="underline underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                              href={photo.source}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {photo.credit} · {photo.license} · Wikimedia Commons
+                            </a>
+                          </p>
                         </figcaption>
                       </figure>
-                      <PhotoCredit photo={photo} />
                       <div className="flex flex-1 flex-col p-5 pt-3 sm:p-6 sm:pt-3">
                         <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">
                           {airport.name}
