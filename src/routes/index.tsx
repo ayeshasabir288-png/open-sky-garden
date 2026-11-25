@@ -17,7 +17,7 @@ import { Faq, FAQS, FinalCta, SiteFooter } from "@/components/home/Closing";
 const SITE = "https://europeairporttaxi.com/";
 const TITLE = "Airport Taxi Transfers Across Europe | Europe Airport Taxi";
 const DESC =
-  "Arrange airport taxi transfers between European airports, hotels and cities. Explore destinations, choose your vehicle and plan your journey.";
+  "Arrange airport taxi transfers between European airports, hotels and cities. Explore destinations and plan your journey.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -66,7 +66,7 @@ function Index() {
   return (
     <>
       <SiteHeader />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <Hero />
         <Intro />
         <Services />

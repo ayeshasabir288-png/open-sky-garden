@@ -10,7 +10,7 @@ import { AIRPORTS } from "@/lib/airports";
 export const FAQS = [
   {
     q: "How do I arrange an airport taxi transfer?",
-    a: "Enter your pickup and drop-off locations, date, time and number of passengers in the form at the top of this page, then choose a vehicle category. Online booking is still being connected, so the form currently shows a summary of your request rather than a confirmed booking.",
+    a: "Enter your pickup and drop-off locations, date, time and number of passengers in the form at the top of this page. Online booking is still being connected, so the form currently shows a summary of your request rather than a confirmed booking.",
   },
   {
     q: "Can I request an airport to hotel transfer?",
@@ -34,7 +34,7 @@ export const FAQS = [
   },
   {
     q: "What information is needed for airport pickup?",
-    a: "The airport, your arrival date and time, flight number, number of passengers and amount of luggage, and the drop-off address.",
+    a: "The airport, your arrival date and time, number of passengers and drop-off address.",
   },
 ];
 
@@ -151,6 +151,10 @@ export function SiteFooter({ homepage = true }: { homepage?: boolean }) {
               <li key={n.href}>
                 {n.label === "Airports" ? (
                   <Link to="/airports/" className="hover:text-primary-bright">
+                    {n.label}
+                  </Link>
+                ) : n.label === "Countries" ? (
+                  <Link to="/countries/" className="hover:text-primary-bright">
                     {n.label}
                   </Link>
                 ) : (

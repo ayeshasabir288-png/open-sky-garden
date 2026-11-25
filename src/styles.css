@@ -51,7 +51,7 @@
   --card-foreground: oklch(0.26 0.04 250);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.26 0.04 250);
-  --primary: oklch(0.58 0.1 191);
+  --primary: oklch(0.53 0.1 191);
   --primary-foreground: oklch(1 0 0);
   --primary-bright: oklch(0.71 0.12 186);
   --pale: oklch(0.97 0.022 185);
@@ -65,19 +65,23 @@
   --muted-foreground: oklch(0.48 0.03 240);
   --accent: oklch(0.95 0.035 185);
   --accent-foreground: oklch(0.36 0.07 195);
-  --destructive: oklch(0.58 0.22 27);
+  --destructive: oklch(0.56 0.21 27);
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(0.91 0.018 195);
   --input: oklch(0.89 0.02 195);
-  --ring: oklch(0.71 0.12 186);
+  --ring: oklch(0.53 0.1 191);
   --overlay: oklch(0.2 0.04 240);
-  --gradient-teal: linear-gradient(135deg, oklch(0.52 0.1 195), oklch(0.71 0.12 186));
+  --gradient-teal: linear-gradient(135deg, oklch(0.52 0.1 195), oklch(0.54 0.12 186));
   --shadow-soft: 0 10px 40px -12px color-mix(in oklab, var(--navy) 22%, transparent);
   --shadow-float: 0 30px 70px -25px color-mix(in oklab, var(--navy) 40%, transparent);
 }
 
 @layer base {
   * { border-color: var(--color-border); }
+  :where(a, button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
   html { scroll-behavior: smooth; }
   body {
     background-color: var(--color-background);
@@ -112,7 +116,7 @@
 .hero-slide { opacity: 0; transform: scale(1.04); transition: opacity 1.2s ease, transform 7.5s linear; }
 .hero-slide.is-active { opacity: 1; transform: scale(1.12); }
 .hero-copy { visibility: hidden; }
-.hero-copy.is-active, .hero-copy-primary { visibility: visible; }
+.hero-copy.is-active { visibility: visible; }
 .hero-copy-title, .hero-copy-text { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
 .hero-copy.is-active .hero-copy-title { opacity: 1; transform: none; transition-delay: 0.35s; }
 .hero-copy.is-active .hero-copy-text { opacity: 1; transform: none; transition-delay: 0.55s; }

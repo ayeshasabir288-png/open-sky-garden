@@ -45,7 +45,7 @@ export function AirportPage({ airport: a }: { airport: Airport }) {
   return (
     <>
       <SiteHeader homepage={false} />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <AirportHero airport={a} />
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <nav

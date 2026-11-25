@@ -151,6 +151,8 @@ export function BookingForm({ onSearch }: { onSearch?: (v: BookingInput) => void
                 max={MAX_PASSENGERS}
                 value={v.passengers}
                 onChange={(e) => set("passengers", Number(e.target.value))}
+                aria-invalid={!!errors.passengers}
+                aria-describedby={errors.passengers ? `${id}-passengers-err` : undefined}
                 className={cn(
                   inputCls,
                   "w-8 text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none",
@@ -192,7 +194,10 @@ export function BookingForm({ onSearch }: { onSearch?: (v: BookingInput) => void
           {v.returnTrip && (
             <div className="grid flex-1 grid-cols-2 gap-2 sm:max-w-md">
               <div>
-                <label htmlFor={`${id}-returnDate`} className="sr-only">
+                <label
+                  htmlFor={`${id}-returnDate`}
+                  className="block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground"
+                >
                   Return date
                 </label>
                 <input
@@ -202,16 +207,24 @@ export function BookingForm({ onSearch }: { onSearch?: (v: BookingInput) => void
                   value={v.returnDate}
                   onChange={(e) => set("returnDate", e.target.value)}
                   aria-invalid={!!errors.returnDate}
-                  className="h-11 w-full rounded-xl border border-input bg-pale/60 px-3 text-sm text-navy"
+                  aria-describedby={errors.returnDate ? `${id}-returnDate-err` : undefined}
+                  className="mt-1 h-11 w-full rounded-xl border border-input bg-pale/60 px-3 text-sm text-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
                 />
                 {errors.returnDate && (
-                  <p role="alert" className="mt-1 text-xs text-destructive">
+                  <p
+                    id={`${id}-returnDate-err`}
+                    role="alert"
+                    className="mt-1 text-xs font-medium text-destructive"
+                  >
                     {errors.returnDate}
                   </p>
                 )}
               </div>
               <div>
-                <label htmlFor={`${id}-returnTime`} className="sr-only">
+                <label
+                  htmlFor={`${id}-returnTime`}
+                  className="block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground"
+                >
                   Return time
                 </label>
                 <input
@@ -220,10 +233,15 @@ export function BookingForm({ onSearch }: { onSearch?: (v: BookingInput) => void
                   value={v.returnTime}
                   onChange={(e) => set("returnTime", e.target.value)}
                   aria-invalid={!!errors.returnTime}
-                  className="h-11 w-full rounded-xl border border-input bg-pale/60 px-3 text-sm text-navy"
+                  aria-describedby={errors.returnTime ? `${id}-returnTime-err` : undefined}
+                  className="mt-1 h-11 w-full rounded-xl border border-input bg-pale/60 px-3 text-sm text-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
                 />
                 {errors.returnTime && (
-                  <p role="alert" className="mt-1 text-xs text-destructive">
+                  <p
+                    id={`${id}-returnTime-err`}
+                    role="alert"
+                    className="mt-1 text-xs font-medium text-destructive"
+                  >
                     {errors.returnTime}
                   </p>
                 )}
@@ -257,7 +275,7 @@ export function BookingForm({ onSearch }: { onSearch?: (v: BookingInput) => void
 }
 
 const inputCls =
-  "w-full bg-transparent text-[15px] font-medium text-navy placeholder:text-muted-foreground/80 focus:outline-none";
+  "w-full bg-transparent text-[15px] font-medium text-navy placeholder:text-muted-foreground/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy";
 
 function Field({
   id,
@@ -313,7 +331,7 @@ function StepBtn({
       aria-label={label}
       onClick={onClick}
       disabled={disabled}
-      className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-input text-navy transition-colors hover:border-primary hover:text-primary disabled:opacity-40"
+      className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-input text-navy transition-colors hover:border-primary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy disabled:opacity-40"
     >
       {children}
     </button>

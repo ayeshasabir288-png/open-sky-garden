@@ -502,8 +502,8 @@ const STEPS = [
   },
   {
     icon: CarFront,
-    title: "Choose Your Transfer",
-    text: "Pick the vehicle category that suits your group and luggage.",
+    title: "Compare Transfer Options",
+    text: "Review the vehicle guidance for your group and luggage before checking the demo summary.",
   },
   {
     icon: CalendarCheck,
@@ -614,7 +614,9 @@ export function Destinations() {
 
 function PhotoCredit({ photo, className }: { photo: Photo; className?: string }) {
   return (
-    <p className={`truncate text-[10px] leading-4 text-muted-foreground ${className ?? ""}`}>
+    <p
+      className={`text-[11px] leading-4 text-muted-foreground [overflow-wrap:anywhere] ${className ?? ""}`}
+    >
       Photo:{" "}
       <a
         href={photo.source}
@@ -761,16 +763,16 @@ const PICKUP = [
     text: "Enter the airport name or code as your pickup location.",
   },
   {
-    title: "Share your flight details",
-    text: "Keep your flight number and arrival time ready so the pickup time can be agreed.",
+    title: "Use your arrival time",
+    text: "Enter your arrival date and time as part of the demo journey summary.",
   },
   {
     title: "Confirm the pickup point",
     text: "The exact meeting point at the terminal is agreed with you before travel.",
   },
   {
-    title: "Passengers and luggage",
-    text: "Give the number of passengers and large items so a suitable vehicle is chosen.",
+    title: "Passengers",
+    text: "Enter the number of passengers; vehicle choices are confirmed outside this demo form.",
   },
   {
     title: "Receive journey details",

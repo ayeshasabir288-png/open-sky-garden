@@ -76,7 +76,7 @@ export const paris: Airport = {
     {
       option: "Express 9517 bus",
       route: "Roissypôle ↔ Saint-Denis Pleyel ↔ Argenteuil",
-      time: "About 45 minutes to Saint-Denis; traffic dependent",
+      time: "IDFM quotes about 45 minutes from Saint-Denis Pleyel to Roissypôle and about 1 hour from Argenteuil; check the current timetable",
       fare: "Check operator fare",
       url: bus,
       luggage: "Shared coach; check space and onward station access",
@@ -165,7 +165,8 @@ export const paris: Airport = {
     {
       label: "Île-de-France Mobilités — Express 9517",
       url: bus,
-      scope: "Route, indicative 45-minute Saint-Denis journey and accessibility",
+      scope:
+        "Route, IDFM journey-time references from Saint-Denis Pleyel and Argenteuil, and accessibility",
     },
     {
       label: "Service Public — 2026 taxi rules",

@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import slideAirport from "@/assets/hero-slide-sedan-airport.jpg";
 import slideRiver from "@/assets/hero-slide-river-town-aerial.jpg";
 import slideFamily from "@/assets/hero-slide-family-resort.jpg";
@@ -13,6 +13,7 @@ const SLIDES = [
   {
     img: slideAirport,
     alt: "Black luxury sedan driving past a modern European airport terminal at sunset",
+    label: "Airport taxi transfers across Europe",
     title: (
       <>
         <span className="text-primary-bright">Airport Taxi</span> Transfers Across{" "}
@@ -24,6 +25,7 @@ const SLIDES = [
   {
     img: slideRiver,
     alt: "Aerial view of a black sedan on a winding road above a turquoise river, stone bridge and historic hillside town at sunset",
+    label: "Discover Europe in comfort",
     title: (
       <>
         Discover <span className="text-primary-bright">Europe</span> in Comfort
@@ -34,6 +36,7 @@ const SLIDES = [
   {
     img: slideCoast,
     alt: "Black sedan on a Mediterranean cliff road above a beach, sailing boats and a colourful hillside village",
+    label: "Coastal transfers to beaches and seaside towns",
     title: (
       <>
         Coastal Transfers to <span className="text-primary-bright">Beaches</span> and Seaside Towns
@@ -44,6 +47,7 @@ const SLIDES = [
   {
     img: slideFamily,
     alt: "Family arriving at a Mediterranean coastal resort while a chauffeur unloads suitcases from a black executive van",
+    label: "Family transfers for holidays and tours",
     title: (
       <>
         <span className="text-primary-bright">Family Transfers</span> for Holidays and Tours
@@ -54,6 +58,7 @@ const SLIDES = [
   {
     img: slideParis,
     alt: "Chauffeur holding a black sedan door for a couple with suitcases on a Paris riverside street, with the Eiffel Tower lit at dusk",
+    label: "Arrivals at Europe's famous landmarks",
     title: (
       <>
         Arrive at Europe’s <span className="text-primary-bright">Famous Landmarks</span>
@@ -64,6 +69,7 @@ const SLIDES = [
   {
     img: slideMarina,
     alt: "Black luxury sedan parked on a waterfront promenade beside yachts in a European marina at sunset",
+    label: "Luxury rides to Europe's best destinations",
     title: (
       <>
         Luxury Rides to <span className="text-primary-bright">Europe’s Best</span> Destinations
@@ -77,15 +83,17 @@ const INTERVAL = 6000;
 export function Hero() {
   const [active, setActive] = useState(0);
   const [auto, setAuto] = useState(false); // enabled after mount unless reduced motion
-  const [paused, setPaused] = useState(false);
-  const resumeT = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const [userPaused, setUserPaused] = useState(false);
+  const [tabHidden, setTabHidden] = useState(false);
+  const [pointerPaused, setPointerPaused] = useState(false);
+  const [focusPaused, setFocusPaused] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     const set = () => setAuto(!mq.matches);
     set();
     mq.addEventListener("change", set);
-    const vis = () => setPaused(document.hidden);
+    const vis = () => setTabHidden(document.hidden);
     document.addEventListener("visibilitychange", vis);
     return () => {
       mq.removeEventListener("change", set);
@@ -93,26 +101,39 @@ export function Hero() {
     };
   }, []);
 
+  const playing = auto && !userPaused && !tabHidden && !pointerPaused && !focusPaused;
+
   useEffect(() => {
-    if (!auto || paused) return;
+    if (!playing) return;
     const t = setTimeout(() => setActive((a) => (a + 1) % SLIDES.length), INTERVAL);
     return () => clearTimeout(t);
-  }, [active, auto, paused]);
+  }, [active, playing]);
 
-  // Manual control pauses autoplay, then resumes after a quiet period.
   const go = useCallback((i: number) => {
     setActive((i + SLIDES.length) % SLIDES.length);
-    setPaused(true);
-    clearTimeout(resumeT.current);
-    resumeT.current = setTimeout(() => !document.hidden && setPaused(false), INTERVAL * 1.5);
   }, []);
-  useEffect(() => () => clearTimeout(resumeT.current), []);
+
+  const togglePlayback = () => {
+    const next = !userPaused;
+    setUserPaused(next);
+    if (!next) {
+      // An explicit play command overrides hover/focus pausing until the pointer or focus leaves.
+      setPointerPaused(false);
+      setFocusPaused(false);
+    }
+  };
 
   return (
     <section
       id="top"
-      aria-labelledby="hero-title"
+      aria-label="Featured transfer journeys"
       aria-roledescription="carousel"
+      onPointerEnter={() => setPointerPaused(true)}
+      onPointerLeave={() => setPointerPaused(false)}
+      onFocusCapture={() => setFocusPaused(true)}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setFocusPaused(false);
+      }}
       className="relative isolate overflow-hidden"
     >
       <div className="absolute inset-0 -z-10 bg-overlay">
@@ -151,15 +172,12 @@ export function Hero() {
               return (
                 <div
                   key={i}
-                  className={cn(
-                    "hero-copy col-start-1 row-start-1",
-                    i === 0 && "hero-copy-primary",
-                    on && "is-active",
-                  )}
-                  aria-hidden={i !== 0 && !on}
+                  id={`hero-slide-${i}`}
+                  className={cn("hero-copy col-start-1 row-start-1", on && "is-active")}
+                  aria-hidden={!on}
                   role="group"
                   aria-roledescription="slide"
-                  aria-label={`${i + 1} of ${SLIDES.length}`}
+                  aria-label={`${i + 1} of ${SLIDES.length}: ${s.label}`}
                 >
                   <Heading
                     id={i === 0 ? "hero-title" : undefined}
@@ -174,24 +192,29 @@ export function Hero() {
               );
             })}
           </div>
+          <p aria-live="polite" aria-atomic="true" className="sr-only">
+            Slide {active + 1} of {SLIDES.length}: {SLIDES[active]?.label}
+          </p>
           <div className="mt-6 flex items-center gap-3">
             <button
               type="button"
               onClick={() => go(active - 1)}
               aria-label="Previous slide"
-              className="grid h-9 w-9 place-items-center rounded-full border border-navy-foreground/30 bg-navy-foreground/10 text-navy-foreground backdrop-blur transition-colors hover:bg-navy-foreground/20 focus-visible:outline-2 focus-visible:outline-ring"
+              aria-controls={`hero-slide-${active}`}
+              className="grid h-9 w-9 place-items-center rounded-full border border-navy-foreground/30 bg-navy-foreground/10 text-navy-foreground backdrop-blur transition-colors hover:bg-navy-foreground/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
             <div className="flex items-center gap-1.5">
-              {SLIDES.map((_, i) => (
+              {SLIDES.map((s, i) => (
                 <button
                   key={i}
                   type="button"
                   onClick={() => go(i)}
-                  aria-label={`Show slide ${i + 1}`}
-                  aria-current={i === active}
-                  className="grid h-6 place-items-center px-0.5 focus-visible:outline-2 focus-visible:outline-ring"
+                  aria-label={`Show slide ${i + 1}: ${s.label}`}
+                  aria-controls={`hero-slide-${i}`}
+                  aria-current={i === active ? "true" : undefined}
+                  className="grid h-8 min-w-8 place-items-center px-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                 >
                   <span
                     className={cn(
@@ -206,9 +229,26 @@ export function Hero() {
               type="button"
               onClick={() => go(active + 1)}
               aria-label="Next slide"
-              className="grid h-9 w-9 place-items-center rounded-full border border-navy-foreground/30 bg-navy-foreground/10 text-navy-foreground backdrop-blur transition-colors hover:bg-navy-foreground/20 focus-visible:outline-2 focus-visible:outline-ring"
+              aria-controls={`hero-slide-${active}`}
+              className="grid h-9 w-9 place-items-center rounded-full border border-navy-foreground/30 bg-navy-foreground/10 text-navy-foreground backdrop-blur transition-colors hover:bg-navy-foreground/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >
               <ChevronRight className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={togglePlayback}
+              aria-label={
+                !auto
+                  ? "Slideshow autoplay disabled"
+                  : userPaused
+                    ? "Play slideshow"
+                    : "Pause slideshow"
+              }
+              disabled={!auto}
+              title={!auto ? "Autoplay is disabled by your reduced-motion preference" : undefined}
+              className="grid h-9 w-9 place-items-center rounded-full border border-navy-foreground/30 bg-navy-foreground/10 text-navy-foreground backdrop-blur transition-colors hover:bg-navy-foreground/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {!auto || userPaused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
             </button>
           </div>
         </div>

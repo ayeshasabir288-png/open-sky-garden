@@ -604,7 +604,7 @@ const amsterdam: PremiumAirportContent = {
     { photo: amsBusPhoto, caption: "Airport-area shuttle bus" },
   ],
   officialLinks: {
-    terminal: "https://www.schiphol.nl/en/at-schiphol/schiphol-s-lounges-and-piers/",
+    terminal: "https://www.schiphol.nl/en/airport-maps/",
     bus: "https://www.schiphol.nl/en/from-to-schiphol/by-public-transport/",
   },
   captions: {
@@ -677,7 +677,7 @@ const paris: PremiumAirportContent = {
       image: cdgRailPhoto.src,
       alt: cdgRailPhoto.alt,
       note: "RER station at CDG Airport",
-      href: "https://www.parisaeroport.fr/en/passengers/transport-parking/shuttles-between-terminals/cdg",
+      href: "https://www.iledefrance-mobilites.fr/actualites/fin-roissy-bus",
       cta: "Official rail guidance",
       icon: "train",
       photo: cdgRailPhoto,
@@ -901,7 +901,7 @@ const rome: PremiumAirportContent = {
       image: fcoRailLeonardoPhoto.src,
       alt: fcoRailLeonardoPhoto.alt,
       note: "Leonardo Express and regional train at Fiumicino Aeroporto",
-      href: "https://www.trenitalia.com/en/services/leonardo_express.html",
+      href: "https://www.trenitalia.com/en/services/leonardo-express.html",
       cta: "Official rail guidance",
       icon: "train",
       photo: fcoRailLeonardoPhoto,

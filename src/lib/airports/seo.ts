@@ -1,5 +1,22 @@
 import type { Airport } from "./types";
 const SITE = "https://europeairporttaxi.com";
+export function notFoundHead() {
+  const title = "Airport guide not found | Europe Airport Taxi";
+  const description = "The requested airport guide is not available.";
+  return {
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { name: "robots", content: "noindex, nofollow" },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+    ],
+    links: [],
+    scripts: [],
+  };
+}
+
 export function airportHead(airport?: Airport) {
   const path = airport ? `/airports/${airport.slug}/` : "/airports/";
   const title = airport

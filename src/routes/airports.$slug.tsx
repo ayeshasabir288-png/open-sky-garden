@@ -1,6 +1,6 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { AIRPORTS } from "@/lib/airports";
-import { airportHead } from "@/lib/airports/seo";
+import { airportHead, notFoundHead } from "@/lib/airports/seo";
 import { AirportPage } from "@/components/airports/AirportPage";
 export const Route = createFileRoute("/airports/$slug")({
   loader: ({ params }) => {
@@ -8,7 +8,7 @@ export const Route = createFileRoute("/airports/$slug")({
     if (!airport) throw notFound();
     return airport;
   },
-  head: ({ loaderData }) => airportHead(loaderData),
+  head: ({ loaderData }) => (loaderData ? airportHead(loaderData) : notFoundHead()),
   component: Detail,
   errorComponent: () => (
     <div className="p-12">

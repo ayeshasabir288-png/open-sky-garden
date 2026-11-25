@@ -16,7 +16,7 @@ export function AirportsDirectory() {
   return (
     <>
       <SiteHeader homepage={false} />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section className="relative isolate overflow-hidden bg-overlay text-navy-foreground">
           <img
             src={photo.src}
